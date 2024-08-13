@@ -2,13 +2,33 @@ package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rulename")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class RuleName {
     @Id
-    Long id;
-    // TODO: Map columns in data table RULENAME with corresponding java fields
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Size(max = 4)
+    Integer id;
+    @Size(max = 125)
+    String name;
+    @Size(max = 125)
+    String description;
+    @Size(max = 125)
+    String json;
+    @Size(max = 512)
+    String template;
+    @Size(max = 125)
+    String sqlStr;
+    @Size(max = 125)
+    String sqlPart;
 }

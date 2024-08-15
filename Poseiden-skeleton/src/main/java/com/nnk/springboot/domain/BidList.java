@@ -3,8 +3,10 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
 import jdk.jfr.*;
 import lombok.*;
+import org.hibernate.validator.constraints.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -19,8 +21,7 @@ import java.sql.Timestamp;
 public class BidList {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Size(max = 4)
+    @GeneratedValue(strategy =GenerationType.AUTO)
     @Column(name = "bidlistid")
     Integer bidListId;
     @NotBlank

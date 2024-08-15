@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @Setter
 public class CurvePoint {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Size(max = 4)
     Integer id;
     Integer curveId;

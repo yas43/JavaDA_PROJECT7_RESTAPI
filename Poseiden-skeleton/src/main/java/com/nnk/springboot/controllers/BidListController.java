@@ -65,10 +65,12 @@ public class BidListController {
         model.addAttribute("bidLists",bidListService.updateBidList( id,bidListDTO));
         return "redirect:/bidList/list";
     }
-//
-//    @GetMapping("/bidList/delete/{id}")
-//    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-//        // TODO: Find Bid by Id and delete the bid, return to Bid list
-//        return "redirect:/bidList/list";
-//    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+        // TODO: Find Bid by Id and delete the bid, return to Bid list
+        bidListService.deleteBidList(id);
+        model.addAttribute("bidLists",bidListService.displayAllBidList());
+        return "bidList/list";
+    }
 }

@@ -48,18 +48,23 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-//    @GetMapping("/bidList/update/{id}")
-//    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-//        // TODO: get Bid by Id and to model then show to the form
-//        return "bidList/update";
-//    }
-//
-//    @PostMapping("/bidList/update/{id}")
-//    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-//                             BindingResult result, Model model) {
-//        // TODO: check required fields, if valid call service to update Bid and return list Bid
-//        return "redirect:/bidList/list";
-//    }
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        // TODO: get Bid by Id and to model then show to the form
+        if (bidListService.isExist(id)) {
+            model.addAttribute(bidListService.displayBidListById(id));
+            return "bidList/update";
+        }
+        else return "redirect;/bidList/update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidListDTO bidListDTO,
+                             BindingResult result, Model model) {
+        // TODO: check required fields, if valid call service to update Bid and return list Bid
+        model.addAttribute("bidLists",bidListService.updateBidList( id,bidListDTO));
+        return "redirect:/bidList/list";
+    }
 //
 //    @GetMapping("/bidList/delete/{id}")
 //    public String deleteBid(@PathVariable("id") Integer id, Model model) {

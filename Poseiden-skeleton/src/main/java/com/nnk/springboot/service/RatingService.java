@@ -39,4 +39,33 @@ public class RatingService {
         rating.setOrderNumber(ratingDTO.getOrder());
         return ratingRepository.save(rating);
     }
+
+    public RatingDTO displayRatingById(Integer id) {
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("could not find rating by this id"));
+        RatingDTO ratingDTO = new RatingDTO();
+        ratingDTO.setId(rating.getId());
+        ratingDTO.setFitchRating(rating.getFitchRating());
+        ratingDTO.setMoodysRating(rating.getMoodysRating());
+        ratingDTO.setSandPRating(rating.getSandpRating());
+        ratingDTO.setOrder(rating.getOrderNumber());
+        return ratingDTO;
+    }
+
+    public Rating updateRating(Integer id, RatingDTO ratingDTO) {
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("could not find rating by given id"));
+        rating.setId(ratingDTO.getId());
+        rating.setSandpRating(ratingDTO.getSandPRating());
+        rating.setFitchRating(ratingDTO.getFitchRating());
+        rating.setMoodysRating(ratingDTO.getMoodysRating());
+        rating.setOrderNumber(ratingDTO.getOrder());
+        return ratingRepository.save(rating);
+    }
+
+    public void deleteRating(Integer id) {
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("could not find rating by this id"));
+        ratingRepository.delete(rating);
+    }
 }

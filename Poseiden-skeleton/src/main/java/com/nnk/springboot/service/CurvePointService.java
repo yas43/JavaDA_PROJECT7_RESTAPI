@@ -40,7 +40,7 @@ public class CurvePointService {
         CurvePoint  curvePoint = curvePointRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find a curve point by this id"));
         CurvePointDTO curvePointDTO = new CurvePointDTO();
-        curvePointDTO.setId(curvePointDTO.getId());
+        curvePointDTO.setId(curvePoint.getId());
         curvePointDTO.setTerm(curvePoint.getTerm());
         curvePointDTO.setValue(curvePoint.getValue());
         return curvePointDTO;

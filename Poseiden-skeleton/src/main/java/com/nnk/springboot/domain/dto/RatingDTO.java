@@ -6,12 +6,12 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RaitingDTO {
+public class RatingDTO {
     Integer id;
     @Size(max = 125)
     String moodysRating;
     @Size(max = 125)
-    String sandpRating;
+    String sandPRating;
     @Size(max = 125)
     String fitchRating;
     Integer order;

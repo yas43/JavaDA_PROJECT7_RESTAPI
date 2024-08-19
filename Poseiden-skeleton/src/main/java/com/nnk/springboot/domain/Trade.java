@@ -18,7 +18,6 @@ import java.sql.Timestamp;
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Size(max = 4)
     Integer tradeId;
     @NotBlank
     @Size(max = 30)

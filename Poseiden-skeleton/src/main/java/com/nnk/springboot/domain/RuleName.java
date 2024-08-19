@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Size(max = 4)
     Integer id;
     @Size(max = 125)
     String name;

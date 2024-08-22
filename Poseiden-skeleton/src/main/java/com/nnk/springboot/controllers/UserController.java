@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("admin")
 public class UserController {
 
    private final UserService userService;

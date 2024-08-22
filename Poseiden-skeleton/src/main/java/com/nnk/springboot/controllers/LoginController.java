@@ -39,12 +39,6 @@ public class LoginController {
 
         @PostMapping("/api/login")
     public String login(@RequestParam String username,@RequestParam String password){
-//        System.out.println("hello this is yaser");
-//        customUserDetailsService.loadUserByUsername(username);
-//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,password);
-//        Authentication authentication = authenticationManager.authenticate(authToken);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-
 
         return "user logged successfully";
     }

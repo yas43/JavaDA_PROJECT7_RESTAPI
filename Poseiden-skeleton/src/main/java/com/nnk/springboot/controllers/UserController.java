@@ -7,6 +7,7 @@ import com.nnk.springboot.service.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
    private final UserService userService;
+   private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/list")
@@ -45,6 +48,7 @@ public class UserController {
 //            user.setPassword(encoder.encode(user.getPassword()));
 //            userRepository.save(user);
 //            model.addAttribute("users", userRepository.findAll());
+            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             userService.addUser(userDTO);
             return "redirect:/user/list";
         }

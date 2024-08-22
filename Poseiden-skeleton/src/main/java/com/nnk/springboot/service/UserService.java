@@ -16,6 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
     public List<UserDTO> displayAllUser() {
         return userRepository.findAll()
                 .stream()

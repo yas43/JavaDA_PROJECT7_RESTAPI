@@ -7,13 +7,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.naming.*;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-prod.properties")
 public class CurvePointTests {
 
 	@Autowired
@@ -21,7 +25,11 @@ public class CurvePointTests {
 
 	@Test
 	public void curvePointTest() {
-		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+		Timestamp asOfDate = new Timestamp(1);
+		Timestamp creationDate = new Timestamp(2);
+//		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+		CurvePoint curvePoint = new CurvePoint(10,10,asOfDate,
+				12d,14d,creationDate);
 
 		// Save
 		curvePoint = curvePointRepository.save(curvePoint);

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -14,14 +15,16 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-prod.properties")
 public class RatingTests {
 
 	@Autowired
 	private RatingRepository ratingRepository;
 
 	@Test
+
 	public void ratingTest() {
-		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+		Rating rating = new Rating(1,"Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
 		// Save
 		rating = ratingRepository.save(rating);

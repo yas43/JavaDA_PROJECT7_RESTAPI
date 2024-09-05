@@ -11,13 +11,14 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "trade")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tradeid")
     Integer tradeId;
     @NotBlank
     @Size(max = 30)
@@ -29,6 +30,7 @@ public class Trade {
     Double sellQuantity;
     Double buyPrice;
     Double sellPrice;
+//    @Temporal(TemporalType.TIMESTAMP)
     Timestamp tradeDate;
     @Size(max = 125)
     String security;
@@ -45,6 +47,7 @@ public class Trade {
     Timestamp creationDate;
     @Size(max = 125)
     String revisionName;
+//    @Temporal(TemporalType.TIMESTAMP)
     Timestamp revisionDate;
     @Size(max = 125)
     String dealName;
@@ -54,4 +57,7 @@ public class Trade {
     String sourceListId;
     @Size(max = 125)
     String side;
+
+    public Trade(String tradeAccount, String type) {
+    }
 }

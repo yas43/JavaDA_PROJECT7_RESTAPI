@@ -29,33 +29,44 @@ public class securityConfiguration {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        registry->{registry.requestMatchers("/api/logout","/api/login","/user/add","/user/delete/*","/adduser").permitAll();
+                        registry->{
+                            registry.requestMatchers("/api/logout","/api/login","/user/add","/user/delete/*","/adduser")
+                                .permitAll();
                             registry.requestMatchers("/admin/*").hasRole("ADMIN");
                             registry.anyRequest().authenticated();
                         })
-                .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer
-//                            .usernameParameter("email")
-//                            .passwordParameter("password")
-                            .loginProcessingUrl("/api/login")
-                            .successHandler((request, response, authentication) ->
-                            {
-                                response.setStatus(HttpServletResponse.SC_OK);
-                                response.getWriter().write("login successful");
 
-                            })
-                            .failureHandler((request, response, exception) -> {
-                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                                response.getWriter().write("login failed");
-                            })
-                            .defaultSuccessUrl("/home",true)
-                            .permitAll();
-
+                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
+                    httpSecurityOAuth2LoginConfigurer
+                            .defaultSuccessUrl("/bidList/list")
+                            .failureUrl("/login?error=true");
                 })
+//                .formLogin(httpSecurityFormLoginConfigurer -> {
+//                    httpSecurityFormLoginConfigurer
+////                            .usernameParameter("email")
+////                            .passwordParameter("password")
+//                            .loginProcessingUrl("/api/login")
+//                            .successHandler((request, response, authentication) ->
+//                            {
+//                                response.setStatus(HttpServletResponse.SC_OK);
+//                                response.getWriter().write("login successful");
+//
+//                            })
+//                            .failureHandler((request, response, exception) -> {
+//                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                                response.getWriter().write("login failed");
+//                            })
+//                            .defaultSuccessUrl("/home",true)
+//                            .permitAll();
+//
+//                })
                 .logout(httpSecurityLogoutConfigurer -> {
-                    httpSecurityLogoutConfigurer.logoutUrl("/logout")
+                    httpSecurityLogoutConfigurer
+                            .logoutUrl("/api/logout")
                             .invalidateHttpSession(true)
-                            .deleteCookies("JSESSIONID");
+                            .deleteCookies("JSESSIONID")
+                            .clearAuthentication(true)
+                            .permitAll();
                 })
 
 

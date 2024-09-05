@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-prod.properties")
 public class RuleTests {
 
 	@Autowired
@@ -21,7 +23,7 @@ public class RuleTests {
 
 	@Test
 	public void ruleTest() {
-		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		RuleName rule = new RuleName(1,"Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
 		rule = ruleNameRepository.save(rule);

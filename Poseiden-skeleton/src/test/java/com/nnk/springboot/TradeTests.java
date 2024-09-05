@@ -7,13 +7,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-prod.properties")
 public class TradeTests {
 
 	@Autowired
@@ -21,7 +24,13 @@ public class TradeTests {
 
 	@Test
 	public void tradeTest() {
-		Trade trade = new Trade("Trade Account", "Type");
+		Timestamp tradeDate = new Timestamp(1);
+		Timestamp creationDate = new Timestamp(2);
+		Timestamp revisionDate = new Timestamp(3);
+		Trade trade = new Trade(1,"Trade Account", "Type",10d,12d,100d,101d,tradeDate
+				,"securityTest","statusTest","traderTest","benchmarkTest","bookTest","creationNameTest"
+		,creationDate,"revisionNameTest",revisionDate,"dealNameTest","dealTypeTest"
+		,"sourceListIdTest","sideTest");
 
 		// Save
 		trade = tradeRepository.save(trade);

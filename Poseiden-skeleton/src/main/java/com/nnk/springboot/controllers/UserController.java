@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping("/validate")
     public String validate(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "user/add";
+            return "admin/add";
         } else {
 //            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            user.setPassword(encoder.encode(user.getPassword()));
@@ -50,7 +50,7 @@ public class UserController {
 //            model.addAttribute("users", userRepository.findAll());
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             userService.addUser(userDTO);
-            return "redirect:/user/list";
+            return "redirect:/admin/list";
         }
 //        return "user/add";
     }
@@ -70,10 +70,10 @@ public class UserController {
     public String updateUser(@PathVariable("id") Integer id, @Valid UserDTO userDTO,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "redirect:/user/update";
+            return "redirect:/admin/update";
         }else {
             userService.updateUser(id, userDTO);
-            return "redirect:/user/list";
+            return "redirect:/admin/list";
                 }
         }
 
@@ -92,6 +92,6 @@ public class UserController {
 //        model.addAttribute("users", userRepository.findAll());
 //        return "redirect:/user/list";
         userService.deleteUser(id);
-        return "redirect:/user/list";
+        return "redirect:/admin/list";
     }
 }

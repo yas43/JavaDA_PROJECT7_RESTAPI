@@ -9,7 +9,9 @@ import lombok.*;
 public class UserDTO {
     private Integer id;
     @NotBlank(message = "Username is mandatory")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{1,8}$" )
+    @Size(min = 8)
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,20}$",
+            message ="password should contain at least a capital letter ,a number and a symbol" )
     private String username;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;

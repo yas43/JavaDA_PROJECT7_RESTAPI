@@ -17,7 +17,7 @@
 			<a href="/trade/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user">  </b>
+			Logged in user: <b th:text="${connectedUser}"  class="user"> USER </b>
 			<form th:action="@{/api/logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>

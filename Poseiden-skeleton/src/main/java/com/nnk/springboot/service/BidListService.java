@@ -5,6 +5,7 @@ import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
 import org.springframework.stereotype.*;
 
+import java.sql.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -75,6 +76,7 @@ public class BidListService {
         BidList bidList = new BidList();
         bidList.setAccount(bidListDTO.getAccount());
         bidList.setType(bidListDTO.getType());
+        bidList.setCreationDate(new Timestamp(System.currentTimeMillis()));
         bidList.setBidQuantity(Double.valueOf(bidListDTO.getBidQuantity()));
 
         return bidListRepository.save(bidList);

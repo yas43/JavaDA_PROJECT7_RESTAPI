@@ -5,6 +5,7 @@ import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
 import org.springframework.stereotype.*;
 
+import java.sql.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -33,6 +34,7 @@ public class CurvePointService {
         CurvePoint curvePoint = new CurvePoint();
         curvePoint.setTerm(curvePointDTO.getTerm());
         curvePoint.setValue(curvePointDTO.getValue());
+        curvePoint.setCreationDate(new Timestamp(System.currentTimeMillis()));
         return curvePointRepository.save(curvePoint);
     }
 

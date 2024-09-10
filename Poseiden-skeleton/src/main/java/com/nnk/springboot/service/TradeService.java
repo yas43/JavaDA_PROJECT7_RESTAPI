@@ -5,6 +5,7 @@ import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
 import org.springframework.stereotype.*;
 
+import java.sql.*;
 import java.util.stream.*;
 
 @Service
@@ -33,6 +34,7 @@ public class TradeService {
         Trade trade = new Trade();
         trade.setAccount(tradeDTO.getAccount());
         trade.setType(tradeDTO.getType());
+        trade.setCreationDate(new Timestamp(System.currentTimeMillis()));
         trade.setBuyQuantity(tradeDTO.getBuyQuantity());
         return tradeRepository.save(trade);
     }

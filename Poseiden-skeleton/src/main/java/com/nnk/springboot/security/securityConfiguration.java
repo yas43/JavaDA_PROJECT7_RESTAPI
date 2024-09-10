@@ -80,6 +80,7 @@ public class securityConfiguration {
                 .logout(httpSecurityLogoutConfigurer -> {
                     httpSecurityLogoutConfigurer
                             .logoutUrl("/api/logout")
+                            .logoutSuccessUrl("/home?logout=true")
                             .invalidateHttpSession(true)
                             .deleteCookies("JSESSIONID")
                             .clearAuthentication(true)

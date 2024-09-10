@@ -12,5 +12,6 @@ import java.util.*;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
     Optional<User>findByUsername(String username);
+    Optional<User>findById(Integer id);
 
 }

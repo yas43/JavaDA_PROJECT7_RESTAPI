@@ -3,6 +3,7 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
+import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
@@ -11,9 +12,11 @@ import java.util.stream.*;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -35,7 +38,7 @@ public class UserService {
         User user = new User();
         user.setFullname(userDTO.getFullname());
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(userDTO.getRole());
         return userRepository.save(user);
     }
@@ -58,7 +61,7 @@ public class UserService {
         user.setId(userDTO.getId());
         user.setUsername(userDTO.getUsername());
         user.setFullname(userDTO.getFullname());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(userDTO.getRole());
         return userRepository.save(user);
     }

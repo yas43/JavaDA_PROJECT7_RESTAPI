@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping("/validate")
     public String validate(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "admin/add";
+            return "user/add";
         } else {
 //            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            user.setPassword(encoder.encode(user.getPassword()));
@@ -62,15 +62,17 @@ public class UserController {
 //        user.setPassword("");
 //        model.addAttribute("user", user);
 //        return "user/update";
-        model.addAttribute("user",userService.displayUserById(id));
+        System.out.println("this is yaser received id is "+ id);
+        model.addAttribute("userDTO",userService.displayUserById(id));
         return "user/update";
     }
 
     @PostMapping("/update/{id}")//place holder for password doesn't work
-    public String updateUser(@PathVariable("id") Integer id, @Valid UserDTO userDTO,
+    public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute UserDTO userDTO,
                              BindingResult result, Model model) {
+        System.out.println("this is received id = "+ id);
         if (result.hasErrors()) {
-            return "redirect:/admin/update";
+            return "user/update";
         }else {
             userService.updateUser(id, userDTO);
             return "redirect:/admin/list";

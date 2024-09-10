@@ -17,7 +17,7 @@ public class UserDTO {
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
     @NotBlank(message = "Password is mandatory")
-    @Pattern(regexp = "^\\d+$")
+    @Pattern(regexp = "^\\d+$",message = "at least 8 numbers")
     @Size(min = 8)
     @NotEmpty(message = "password mandatory")
     private String password;

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class RuleNameController {
     // TODO: Inject RuleName service
     private final RuleNameService ruleNameService;
+    private final Utils utils;
 
-    public RuleNameController(RuleNameService ruleNameService) {
+    public RuleNameController(RuleNameService ruleNameService, Utils utils) {
         this.ruleNameService = ruleNameService;
+        this.utils = utils;
     }
 
     @GetMapping("/list")
@@ -25,6 +27,7 @@ public class RuleNameController {
     {
         // TODO: find all RuleName, add to model
         model.addAttribute("ruleNames",ruleNameService.displayAllRuleName());
+        model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "ruleName/list";
     }
 

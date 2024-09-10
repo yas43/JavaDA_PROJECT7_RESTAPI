@@ -20,16 +20,19 @@ public class UserController {
 
    private final UserService userService;
    private final PasswordEncoder passwordEncoder;
+   private final Utils utils;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, Utils utils) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.utils = utils;
     }
 
     @GetMapping("/list")
     public String home(Model model)
     {
         model.addAttribute("users", userService.displayAllUser());
+        model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "user/list";
     }
 

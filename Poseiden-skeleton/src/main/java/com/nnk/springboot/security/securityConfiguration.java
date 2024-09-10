@@ -47,6 +47,10 @@ public class securityConfiguration {
                             registry.anyRequest().authenticated();
                         })
 
+                .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
+                        httpSecurityExceptionHandlingConfigurer.accessDeniedPage("/app/error"))
+
+
 //                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
 //                    httpSecurityOAuth2LoginConfigurer
 //                            .userInfoEndpoint(userInfo -> userInfo

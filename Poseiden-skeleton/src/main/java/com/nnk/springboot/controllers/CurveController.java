@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class CurveController {
     // TODO: Inject Curve Point service
     private final CurvePointService curvePointService;
+    private final Utils utils;
 
-    public CurveController(CurvePointService curvePointService) {
+    public CurveController(CurvePointService curvePointService, Utils utils) {
         this.curvePointService = curvePointService;
+        this.utils = utils;
     }
 
     @GetMapping("/list")
@@ -25,6 +27,7 @@ public class CurveController {
     {
         // TODO: find all Curve Point, add to model
         model.addAttribute("curvePoints",curvePointService.displayAllCurvePoint());
+        model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "curvePoint/list";
     }
 

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("bidList")
 public class BidListController {
     private final BidListService bidListService;
+    private final Utils utils;
 
-    public BidListController(BidListService bidListService) {
+    public BidListController(BidListService bidListService, Utils utils) {
         this.bidListService = bidListService;
+        this.utils = utils;
     }
     // TODO: Inject Bid service
 
@@ -25,6 +27,7 @@ public class BidListController {
     {
         // TODO: call service find all bids to show to the view
         model.addAttribute("bidLists",bidListService.displayAllBidList());
+        model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "bidList/list";
     }
 

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class TradeController {
     // TODO: Inject Trade service
     private final TradeService tradeService;
+    private final Utils utils;
 
-    public TradeController(TradeService tradeService) {
+    public TradeController(TradeService tradeService, Utils utils) {
         this.tradeService = tradeService;
+        this.utils = utils;
     }
 
     @GetMapping("/list")
@@ -25,6 +27,7 @@ public class TradeController {
     {
         // TODO: find all Trade, add to model
         model.addAttribute("trades",tradeService.displayAllTrade());
+        model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "trade/list";
     }
 

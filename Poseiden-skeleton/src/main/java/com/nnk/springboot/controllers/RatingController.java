@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class RatingController {
     // TODO: Inject Rating service
     private final RatingService ratingService;
+    private final Utils utils;
 
-    public RatingController(RatingService ratingService) {
+    public RatingController(RatingService ratingService, Utils utils) {
         this.ratingService = ratingService;
+        this.utils = utils;
     }
 
     @GetMapping("/list")
@@ -25,6 +27,7 @@ public class RatingController {
     {
         // TODO: find all Rating, add to model
         model.addAttribute("ratings", ratingService.displayAllRating());
+        model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "rating/list";
     }
 

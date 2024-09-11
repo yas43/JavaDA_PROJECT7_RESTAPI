@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">TradeService.java</span></div><h1>TradeService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import com.nnk.springboot.domain.*;
+import com.nnk.springboot.domain.dto.*;
+import com.nnk.springboot.repositories.*;
+import org.springframework.stereotype.*;
+
+import java.sql.*;
+import java.util.stream.*;
+
+@Service
+public class TradeService {
+    private final TradeRepository tradeRepository;
+
+<span class="fc" id="L15">    public TradeService(TradeRepository tradeRepository) {</span>
+<span class="fc" id="L16">        this.tradeRepository = tradeRepository;</span>
+<span class="fc" id="L17">    }</span>
+
+
+    public Object displayAllTrade() {
+<span class="fc" id="L21">        return tradeRepository.findAll()</span>
+<span class="fc" id="L22">                .stream()</span>
+<span class="fc" id="L23">                .map(</span>
+                        trade -&gt; {
+<span class="fc" id="L25">                            return new TradeDTO(trade.getTradeId(),</span>
+<span class="fc" id="L26">                                    trade.getAccount(),</span>
+<span class="fc" id="L27">                                    trade.getType(),</span>
+<span class="fc" id="L28">                                    trade.getBuyQuantity());</span>
+                        })
+<span class="fc" id="L30">                .collect(Collectors.toList());</span>
+    }
+
+    public Trade addTrade(TradeDTO tradeDTO) {
+<span class="fc" id="L34">        Trade trade = new Trade();</span>
+<span class="fc" id="L35">        trade.setAccount(tradeDTO.getAccount());</span>
+<span class="fc" id="L36">        trade.setType(tradeDTO.getType());</span>
+<span class="fc" id="L37">        trade.setCreationDate(new Timestamp(System.currentTimeMillis()));</span>
+<span class="fc" id="L38">        trade.setBuyQuantity(tradeDTO.getBuyQuantity());</span>
+<span class="fc" id="L39">        return tradeRepository.save(trade);</span>
+    }
+
+    public TradeDTO displayTradeById(Integer id) {
+<span class="fc" id="L43">        Trade trade = tradeRepository.findById(id)</span>
+<span class="fc" id="L44">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find a trade by this id&quot;));</span>
+<span class="fc" id="L45">        TradeDTO tradeDTO = new TradeDTO();</span>
+<span class="fc" id="L46">        tradeDTO.setTradeId(trade.getTradeId());</span>
+<span class="fc" id="L47">        tradeDTO.setType(trade.getType());</span>
+<span class="fc" id="L48">        tradeDTO.setAccount(trade.getAccount());</span>
+<span class="fc" id="L49">        tradeDTO.setBuyQuantity(trade.getBuyQuantity());</span>
+<span class="fc" id="L50">        return tradeDTO;</span>
+    }
+
+    public Trade updateTrade(Integer id, TradeDTO tradeDTO) {
+<span class="fc" id="L54">        Trade trade = tradeRepository.findById(id)</span>
+<span class="pc" id="L55">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find trade by given id&quot;));</span>
+<span class="fc" id="L56">        trade.setTradeId(tradeDTO.getTradeId());</span>
+<span class="fc" id="L57">        trade.setAccount(tradeDTO.getAccount());</span>
+<span class="fc" id="L58">        trade.setType(tradeDTO.getType());</span>
+<span class="fc" id="L59">        trade.setBuyQuantity(tradeDTO.getBuyQuantity());</span>
+<span class="fc" id="L60">        return tradeRepository.save(trade);</span>
+    }
+
+    public void deleteTrade(Integer id) {
+<span class="fc" id="L64">        Trade trade = tradeRepository.findById(id)</span>
+<span class="fc" id="L65">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find trade by this id&quot;));</span>
+<span class="fc" id="L66">        tradeRepository.delete(trade);</span>
+<span class="fc" id="L67">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">BidListService.java</span></div><h1>BidListService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import com.nnk.springboot.domain.*;
+import com.nnk.springboot.domain.dto.*;
+import com.nnk.springboot.repositories.*;
+import org.springframework.stereotype.*;
+
+import java.sql.*;
+import java.util.*;
+import java.util.stream.*;
+
+import static java.util.stream.Collectors.toList;
+
+@Service
+public class BidListService {
+    private final BidListRepository bidListRepository;
+
+<span class="fc" id="L18">    public BidListService(BidListRepository bidListRepository) {</span>
+<span class="fc" id="L19">        this.bidListRepository = bidListRepository;</span>
+<span class="fc" id="L20">    }</span>
+
+    public BidListDTO displayBidListById(Integer id){
+<span class="fc" id="L23">        BidList bidList = bidListRepository.findByBidListId(id)</span>
+<span class="fc" id="L24">                .orElseThrow(()-&gt;new RuntimeException(&quot;this id is not corresponding to a bidList in database &quot;));</span>
+//        return bidList;
+<span class="fc" id="L26">        BidListDTO bidListDTO = new BidListDTO();</span>
+<span class="fc" id="L27">        bidListDTO.setId(bidList.getBidListId());</span>
+<span class="fc" id="L28">        bidListDTO.setType(bidList.getType());</span>
+<span class="fc" id="L29">        bidListDTO.setAccount(bidList.getAccount());</span>
+<span class="fc" id="L30">        bidListDTO.setBidQuantity(bidListDTO.getBidQuantity());</span>
+<span class="fc" id="L31">        return bidListDTO;</span>
+    }
+
+    public List&lt;BidListDTO&gt; displayAllBidList(){
+
+<span class="fc" id="L36">        return bidListRepository.findAll().stream()</span>
+<span class="fc" id="L37">                .map(bidList -&gt; {</span>
+<span class="fc" id="L38">                    return new BidListDTO(bidList.getBidListId()</span>
+<span class="fc" id="L39">                            ,bidList.getAccount()</span>
+<span class="fc" id="L40">                            ,bidList.getType()</span>
+<span class="fc" id="L41">                            ,bidList.getBidQuantity());</span>
+                })
+<span class="fc" id="L43">                .collect(toList());</span>
+
+
+//        List&lt;BidList&gt; bidLists = bidListRepository.findAll();
+//        List&lt;BidListDTO&gt; bidListDTOS = new LinkedList&lt;&gt;();
+//        for (BidList bidList:bidLists){
+//            BidListDTO bidListDTO = new BidListDTO();
+//            bidListDTO.setId(bidList.getBidListId());
+//            bidListDTO.setAccount(bidList.getAccount());
+//            bidListDTO.setType(bidList.getType());
+//            bidListDTO.setBidQuantity(bidList.getBidQuantity());
+//            bidListDTOS.add(bidListDTO);
+//        }
+//        return bidListDTOS;
+
+
+
+
+// TO DO : IF IT CAN BE WRITTEN BY STREAMS
+        //        return bidLists;
+//      return   bidLists
+//              .stream()
+//              .map(bidList -&gt; {
+//                    new BidListDTO(bidList.getAccount(), bidList.getType(), bidList.getBidQuantity());
+//                }
+//                .collect(Collectors.toList()));
+
+
+
+
+    }
+    public BidList addBidList(BidListDTO bidListDTO){
+//        BidList bidList = new BidList(bidListDTO.getAccount(),bidListDTO.getType(),bidListDTO.getBidQuantity());
+<span class="fc" id="L76">        BidList bidList = new BidList();</span>
+<span class="fc" id="L77">        bidList.setAccount(bidListDTO.getAccount());</span>
+<span class="fc" id="L78">        bidList.setType(bidListDTO.getType());</span>
+<span class="fc" id="L79">        bidList.setCreationDate(new Timestamp(System.currentTimeMillis()));</span>
+<span class="fc" id="L80">        bidList.setBidQuantity(Double.valueOf(bidListDTO.getBidQuantity()));</span>
+
+<span class="fc" id="L82">        return bidListRepository.save(bidList);</span>
+    }
+    public void deleteBidList(int id){
+<span class="fc" id="L85">        BidList bidList = bidListRepository.findByBidListId(id)</span>
+<span class="fc" id="L86">                .orElseThrow(()-&gt;new RuntimeException(&quot;can't find this id&quot;));</span>
+<span class="fc" id="L87">        bidListRepository.delete(bidList);</span>
+<span class="fc" id="L88">    }</span>
+
+
+    public Boolean isExist(Integer id){
+<span class="fc" id="L92">       return bidListRepository.existsById(id);</span>
+    }
+
+    public BidList updateBidList(Integer id,BidListDTO bidListDTO) {
+<span class="fc" id="L96">        BidList bidList = bidListRepository.findByBidListId(id)</span>
+<span class="pc" id="L97">                .orElseThrow(()-&gt;new RuntimeException(&quot;no BidList found by this id&quot;));</span>
+<span class="fc" id="L98">        bidList.setAccount(bidListDTO.getAccount());</span>
+<span class="fc" id="L99">        bidList.setType(bidListDTO.getType());</span>
+<span class="fc" id="L100">        bidList.setBidQuantity(bidListDTO.getBidQuantity());</span>
+<span class="fc" id="L101">        return bidListRepository.save(bidList);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">RatingService.java</span></div><h1>RatingService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import com.nnk.springboot.domain.*;
+import com.nnk.springboot.domain.dto.*;
+import com.nnk.springboot.repositories.*;
+import org.springframework.stereotype.*;
+
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
+
+@Service
+public class RatingService {
+    private final RatingRepository ratingRepository;
+
+<span class="fc" id="L16">    public RatingService(RatingRepository ratingRepository) {</span>
+<span class="fc" id="L17">        this.ratingRepository = ratingRepository;</span>
+<span class="fc" id="L18">    }</span>
+
+    public List&lt;RatingDTO&gt; displayAllRating() {
+<span class="fc" id="L21">      return   ratingRepository.findAll().stream()</span>
+<span class="fc" id="L22">                .map(rating -&gt;</span>
+                        {
+<span class="fc" id="L24">                               return new RatingDTO(rating.getId(),</span>
+<span class="fc" id="L25">                                       rating.getMoodysRating(),</span>
+<span class="fc" id="L26">                                       rating.getSandpRating(),</span>
+<span class="fc" id="L27">                                       rating.getFitchRating(),</span>
+<span class="fc" id="L28">                                       rating.getOrderNumber());</span>
+                        })
+<span class="fc" id="L30">                .collect(toList());</span>
+
+    }
+
+    public Rating addRating(RatingDTO ratingDTO) {
+<span class="fc" id="L35">        Rating rating = new Rating();</span>
+<span class="fc" id="L36">        rating.setFitchRating(ratingDTO.getFitchRating());</span>
+<span class="fc" id="L37">        rating.setMoodysRating(ratingDTO.getMoodysRating());</span>
+<span class="fc" id="L38">        rating.setSandpRating(ratingDTO.getSandPRating());</span>
+<span class="fc" id="L39">        rating.setOrderNumber(ratingDTO.getOrder());</span>
+<span class="fc" id="L40">        return ratingRepository.save(rating);</span>
+    }
+
+    public RatingDTO displayRatingById(Integer id) {
+<span class="fc" id="L44">        Rating rating = ratingRepository.findById(id)</span>
+<span class="fc" id="L45">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by this id&quot;));</span>
+<span class="fc" id="L46">        RatingDTO ratingDTO = new RatingDTO();</span>
+<span class="fc" id="L47">        ratingDTO.setId(rating.getId());</span>
+<span class="fc" id="L48">        ratingDTO.setFitchRating(rating.getFitchRating());</span>
+<span class="fc" id="L49">        ratingDTO.setMoodysRating(rating.getMoodysRating());</span>
+<span class="fc" id="L50">        ratingDTO.setSandPRating(rating.getSandpRating());</span>
+<span class="fc" id="L51">        ratingDTO.setOrder(rating.getOrderNumber());</span>
+<span class="fc" id="L52">        return ratingDTO;</span>
+    }
+
+    public Rating updateRating(Integer id, RatingDTO ratingDTO) {
+<span class="fc" id="L56">        Rating rating = ratingRepository.findById(id)</span>
+<span class="pc" id="L57">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by given id&quot;));</span>
+<span class="fc" id="L58">        rating.setId(ratingDTO.getId());</span>
+<span class="fc" id="L59">        rating.setSandpRating(ratingDTO.getSandPRating());</span>
+<span class="fc" id="L60">        rating.setFitchRating(ratingDTO.getFitchRating());</span>
+<span class="fc" id="L61">        rating.setMoodysRating(ratingDTO.getMoodysRating());</span>
+<span class="fc" id="L62">        rating.setOrderNumber(ratingDTO.getOrder());</span>
+<span class="fc" id="L63">        return ratingRepository.save(rating);</span>
+    }
+
+    public void deleteRating(Integer id) {
+<span class="fc" id="L67">        Rating rating = ratingRepository.findById(id)</span>
+<span class="fc" id="L68">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by this id&quot;));</span>
+<span class="fc" id="L69">        ratingRepository.delete(rating);</span>
+<span class="fc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

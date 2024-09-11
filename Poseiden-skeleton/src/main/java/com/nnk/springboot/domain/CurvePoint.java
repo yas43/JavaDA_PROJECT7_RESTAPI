@@ -29,4 +29,7 @@ public class CurvePoint {
 
     public CurvePoint(int i, double v, double v1) {
     }
+
+    public CurvePoint(int i, double v, double v1, Timestamp timestamp) {
+    }
 }

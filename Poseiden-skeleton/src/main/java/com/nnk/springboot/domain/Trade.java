@@ -60,4 +60,7 @@ public class Trade {
 
     public Trade(String tradeAccount, String type) {
     }
+
+    public Trade(int i, String account1, String type1, double v, Timestamp timestamp) {
+    }
 }

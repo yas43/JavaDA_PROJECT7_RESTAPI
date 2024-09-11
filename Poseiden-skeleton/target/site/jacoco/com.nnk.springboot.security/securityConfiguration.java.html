@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>securityConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.security</a> &gt; <span class="el_source">securityConfiguration.java</span></div><h1>securityConfiguration.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.security;
+
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.repositories.*;
+import com.nnk.springboot.service.*;
+import jakarta.servlet.http.*;
+import org.springframework.context.annotation.*;
+import org.springframework.http.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.dao.*;
+import org.springframework.security.config.annotation.authentication.builders.*;
+import org.springframework.security.config.annotation.web.builders.*;
+import org.springframework.security.config.annotation.web.configuration.*;
+import org.springframework.security.config.annotation.web.configurers.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.authority.*;
+import org.springframework.security.core.authority.mapping.*;
+import org.springframework.security.core.userdetails.*;
+import org.springframework.security.crypto.bcrypt.*;
+import org.springframework.security.crypto.password.*;
+
+import org.springframework.security.web.*;
+
+import java.util.*;
+import java.util.stream.*;
+
+@Configuration
+@EnableWebSecurity
+public class securityConfiguration {
+    private final CustomUserDetailsService customUserDetailsService;
+
+
+<span class="fc" id="L33">    public securityConfiguration(CustomUserDetailsService customUserDetailsService) {</span>
+<span class="fc" id="L34">        this.customUserDetailsService = customUserDetailsService;</span>
+
+<span class="fc" id="L36">    }</span>
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+<span class="fc" id="L40">        return httpSecurity</span>
+<span class="fc" id="L41">                .csrf(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L42">                .authorizeHttpRequests(</span>
+                        registry-&gt;{
+<span class="fc" id="L44">                            registry.requestMatchers(&quot;/home&quot;,&quot;/api/logout&quot;,&quot;/api/login&quot;,&quot;/user/add&quot;,&quot;/user/delete/*&quot;,&quot;/adduser&quot;)</span>
+<span class="fc" id="L45">                                .permitAll();</span>
+<span class="fc" id="L46">                            registry.requestMatchers(&quot;/admin/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L47">                            registry.anyRequest().authenticated();</span>
+<span class="fc" id="L48">                        })</span>
+
+<span class="fc" id="L50">                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -&gt;</span>
+<span class="fc" id="L51">                        httpSecurityExceptionHandlingConfigurer.accessDeniedPage(&quot;/app/error&quot;))</span>
+
+
+//                .oauth2Login(httpSecurityOAuth2LoginConfigurer -&gt; {
+//                    httpSecurityOAuth2LoginConfigurer
+//                            .userInfoEndpoint(userInfo -&gt; userInfo
+//                                    .userService(oAuth2UserService()))
+//                            .defaultSuccessUrl(&quot;/bidList/list&quot;)
+//                            .failureUrl(&quot;/login?error=true&quot;);
+//                })
+<span class="fc" id="L61">                .formLogin(httpSecurityFormLoginConfigurer -&gt; {</span>
+<span class="fc" id="L62">                    httpSecurityFormLoginConfigurer</span>
+//                            .usernameParameter(&quot;email&quot;)
+//                            .passwordParameter(&quot;password&quot;)
+<span class="fc" id="L65">                            .loginProcessingUrl(&quot;/api/login&quot;)</span>
+<span class="fc" id="L66">                            .successHandler((request, response, authentication) -&gt;</span>
+                            {
+<span class="nc" id="L68">                                response.setStatus(HttpServletResponse.SC_OK);</span>
+<span class="nc" id="L69">                                response.getWriter().write(&quot;login successful&quot;);</span>
+
+<span class="nc" id="L71">                            })</span>
+<span class="fc" id="L72">                            .failureHandler((request, response, exception) -&gt; {</span>
+<span class="nc" id="L73">                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L74">                                response.getWriter().write(&quot;login failed&quot;);</span>
+<span class="nc" id="L75">                            })</span>
+<span class="fc" id="L76">                            .defaultSuccessUrl(&quot;/app/default&quot;,true)</span>
+<span class="fc" id="L77">                            .permitAll();</span>
+
+<span class="fc" id="L79">                })</span>
+<span class="fc" id="L80">                .logout(httpSecurityLogoutConfigurer -&gt; {</span>
+<span class="fc" id="L81">                    httpSecurityLogoutConfigurer</span>
+<span class="fc" id="L82">                            .logoutUrl(&quot;/api/logout&quot;)</span>
+<span class="fc" id="L83">                            .logoutSuccessUrl(&quot;/home?logout=true&quot;)</span>
+<span class="fc" id="L84">                            .invalidateHttpSession(true)</span>
+<span class="fc" id="L85">                            .deleteCookies(&quot;JSESSIONID&quot;)</span>
+<span class="fc" id="L86">                            .clearAuthentication(true)</span>
+<span class="fc" id="L87">                            .permitAll();</span>
+<span class="fc" id="L88">                })</span>
+
+
+<span class="fc" id="L91">                .build();</span>
+    }
+
+//    @Bean
+//    public OAuth2UserService&lt;OAuth2UserRequest, OAuth2User&gt; oAuth2UserService() {
+//        return userRequest -&gt; {
+//            OAuth2User oauth2User = (OAuth2User) userRequest.getAdditionalParameters().get(&quot;user&quot;);
+//
+//            String githubUsername = oauth2User.getAttribute(&quot;login&quot;); // GitHub username
+//
+//            // Fetch the user from the database by GitHub login
+//            User user = userRepository.findByUsername(githubUsername)
+//                    .orElseThrow(() -&gt; new RuntimeException(&quot;User not found in the database&quot;));
+
+
+
+            // Convert the user's roles from the database to SimpleGrantedAuthority
+//            Set&lt;SimpleGrantedAuthority&gt; authorities = user.getRoles().stream()
+//                    .map(role -&gt; new SimpleGrantedAuthority(role.getName()))
+//                    .collect(Collectors.toSet());
+
+//            Set&lt;SimpleGrantedAuthority&gt; authorities = new HashSet&lt;&gt;();
+//            authorities.stream()
+//                    .map(s -&gt; new SimpleGrantedAuthority(user.getRole()))
+//                    .collect(Collectors.toList());
+//
+//            // Return the authenticated OAuth2User with the roles fetched from the database
+//            return new DefaultOAuth2User(authorities, oauth2User.getAttributes(), &quot;login&quot;);
+//        };
+//    }
+
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+<span class="fc" id="L125">        return customUserDetailsService;</span>
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+<span class="fc" id="L130">        return new BCryptPasswordEncoder();</span>
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider (){
+<span class="fc" id="L135">        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();</span>
+<span class="fc" id="L136">        daoAuthenticationProvider.setUserDetailsService(userDetailsService());</span>
+<span class="fc" id="L137">        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());</span>
+<span class="fc" id="L138">        return daoAuthenticationProvider;</span>
+
+    }
+    @Bean
+    AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
+<span class="fc" id="L143">        AuthenticationManagerBuilder authenticationManagerBuilder =</span>
+<span class="fc" id="L144">                httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);</span>
+<span class="fc" id="L145">        authenticationManagerBuilder</span>
+<span class="fc" id="L146">                .userDetailsService(customUserDetailsService)</span>
+<span class="fc" id="L147">                .passwordEncoder(passwordEncoder());</span>
+<span class="fc" id="L148">        return authenticationManagerBuilder.build();</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

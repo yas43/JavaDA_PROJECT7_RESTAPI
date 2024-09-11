@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">BidList.java</span></div><h1>BidList.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jdk.jfr.*;
+import lombok.*;
+import org.hibernate.validator.constraints.*;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = &quot;bidlist&quot;)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class BidList {
+
+    @Id
+    @GeneratedValue(strategy =GenerationType.AUTO)
+    @Column(name = &quot;bidlistid&quot;)
+    Integer bidListId;
+    @NotBlank
+    @Size(max = 30)
+    String account;
+    @NotBlank
+    @Size(max = 30)
+    String type;
+    Double bidQuantity;
+    Double askQuantity;
+    Double bid;
+    Double ask;
+    @Size(max = 125)
+    String benchmark;
+    Timestamp bidListDate;
+    @Size(max = 125)
+    String commentary;
+    @Size(max = 125)
+    String security;
+    @Size(max = 10)
+    String status;
+    @Size(max = 125)
+    String trader;
+    @Size(max = 125)
+    String book;
+    @Size(max = 125)
+    String creationName;
+    Timestamp creationDate;
+    @Size(max = 125)
+    String revisionName;
+    Timestamp revisionDate;
+    @Size(max = 125)
+    String dealName;
+    @Size(max = 125)
+    String dealType;
+    @Size(max = 125)
+    String sourceListId;
+    @Size(max = 125)
+    String side;
+
+
+<span class="nc" id="L66">    public BidList(String accountTest, String typeTest, double v) {</span>
+<span class="nc" id="L67">    }</span>
+
+<span class="fc" id="L69">    public BidList(int i, String account1, String type1, double v, Timestamp timestamp) {</span>
+<span class="fc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

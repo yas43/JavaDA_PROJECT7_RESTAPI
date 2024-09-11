@@ -7,6 +7,7 @@
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/controllers/RuleNameController.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/controllers/TradeController.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/controllers/UserController.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/controllers/UserRegistry.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/BidList.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/CurvePoint.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/Rating.java
@@ -33,3 +34,4 @@
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/service/RuleNameService.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/service/TradeService.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/service/UserService.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/service/Utils.java

@@ -19,6 +19,13 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
+    public User(String testUser, String testUser1) {
+    }
+
+    public User() {
+
+    }
+
     public Integer getId() {
         return id;
     }

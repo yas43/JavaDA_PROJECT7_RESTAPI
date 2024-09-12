@@ -5,9 +5,14 @@
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/TradeTests.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/BidListControllerTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/CurveControllerTest.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/RatingControllerTest.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/RuleNameControllerTest.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/TradeControllerTest.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/UserControllerTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/BidListServiceTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/CurvePointServiceTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/PasswordEncodeTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/RatingServiceTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/RuleNameServiceTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/TradeServiceTest.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/service/UserServiceTest.java

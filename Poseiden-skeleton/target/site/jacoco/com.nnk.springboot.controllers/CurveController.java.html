@@ -50,26 +50,26 @@ public class CurveController {
 
     @GetMapping(&quot;/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="nc" id="L53">        model.addAttribute(&quot;curvePoints&quot;,curvePointService.displayCurvePointById(id));</span>
-<span class="nc" id="L54">        return &quot;curvePoint/update&quot;;</span>
+<span class="fc" id="L53">        model.addAttribute(&quot;curvePoints&quot;,curvePointService.displayCurvePointById(id));</span>
+<span class="fc" id="L54">        return &quot;curvePoint/update&quot;;</span>
     }
 
     @PostMapping(&quot;/update/{id}&quot;)
     public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePointDTO curvePointDTO,
                              BindingResult result) {
-<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (result.hasErrors()){</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (result.hasErrors()){</span>
 <span class="nc" id="L61">            return &quot;redirect:/curvePoint/update&quot;;</span>
         }else {
-<span class="nc" id="L63">            curvePointService.updateCurvePoint(id, curvePointDTO);</span>
+<span class="fc" id="L63">            curvePointService.updateCurvePoint(id, curvePointDTO);</span>
 //            model.addAttribute(&quot;curvePoints&quot;,curvePointService.updateCurvePoint(id, curvePointDTO));
-<span class="nc" id="L65">            return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L65">            return &quot;redirect:/curvePoint/list&quot;;</span>
         }
     }
 
     @GetMapping(&quot;/delete/{id}&quot;)
     public String deleteBid(@PathVariable(&quot;id&quot;) Integer id) {
-<span class="nc" id="L71">        curvePointService.deleteCurvPoint(id);</span>
-<span class="nc" id="L72">        return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L71">        curvePointService.deleteCurvPoint(id);</span>
+<span class="fc" id="L72">        return &quot;redirect:/curvePoint/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

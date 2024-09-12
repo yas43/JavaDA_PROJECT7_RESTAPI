@@ -21,55 +21,55 @@ public class UserService {
 
 
     public List&lt;UserDTO&gt; displayAllUser() {
-<span class="nc" id="L24">        return userRepository.findAll()</span>
-<span class="nc" id="L25">                .stream()</span>
-<span class="nc" id="L26">                .map(</span>
+<span class="fc" id="L24">        return userRepository.findAll()</span>
+<span class="fc" id="L25">                .stream()</span>
+<span class="fc" id="L26">                .map(</span>
                         user -&gt; {
-<span class="nc" id="L28">                            return new UserDTO(user.getId(),</span>
-<span class="nc" id="L29">                                    user.getUsername(),</span>
-<span class="nc" id="L30">                                    user.getFullname(),</span>
-<span class="nc" id="L31">                                    user.getPassword(),</span>
-<span class="nc" id="L32">                                    user.getRole());</span>
+<span class="fc" id="L28">                            return new UserDTO(user.getId(),</span>
+<span class="fc" id="L29">                                    user.getUsername(),</span>
+<span class="fc" id="L30">                                    user.getFullname(),</span>
+<span class="fc" id="L31">                                    user.getPassword(),</span>
+<span class="fc" id="L32">                                    user.getRole());</span>
                         })
-<span class="nc" id="L34">                .collect(Collectors.toList());</span>
+<span class="fc" id="L34">                .collect(Collectors.toList());</span>
     }
 
     public User addUser(UserDTO userDTO) {
-<span class="nc" id="L38">        User user = new User();</span>
-<span class="nc" id="L39">        user.setFullname(userDTO.getFullname());</span>
-<span class="nc" id="L40">        user.setUsername(userDTO.getUsername());</span>
-<span class="nc" id="L41">        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
-<span class="nc" id="L42">        user.setRole(userDTO.getRole());</span>
-<span class="nc" id="L43">        return userRepository.save(user);</span>
+<span class="fc" id="L38">        User user = new User();</span>
+<span class="fc" id="L39">        user.setFullname(userDTO.getFullname());</span>
+<span class="fc" id="L40">        user.setUsername(userDTO.getUsername());</span>
+<span class="fc" id="L41">        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
+<span class="fc" id="L42">        user.setRole(userDTO.getRole());</span>
+<span class="fc" id="L43">        return userRepository.save(user);</span>
     }
 
     public UserDTO displayUserById(Integer id) {
-<span class="nc" id="L47">        User user = userRepository.findById(id)</span>
-<span class="nc" id="L48">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find user by this id&quot;));</span>
-<span class="nc" id="L49">        UserDTO userDTO = new UserDTO();</span>
-<span class="nc" id="L50">        userDTO.setId(user.getId());</span>
-<span class="nc" id="L51">        userDTO.setUsername(user.getUsername());</span>
-<span class="nc" id="L52">        userDTO.setFullname(user.getFullname());</span>
-<span class="nc" id="L53">        userDTO.setPassword(user.getPassword());</span>
-<span class="nc" id="L54">        userDTO.setRole(user.getRole());</span>
-<span class="nc" id="L55">        return userDTO;</span>
+<span class="fc" id="L47">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L48">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find user by this id&quot;));</span>
+<span class="fc" id="L49">        UserDTO userDTO = new UserDTO();</span>
+<span class="fc" id="L50">        userDTO.setId(user.getId());</span>
+<span class="fc" id="L51">        userDTO.setUsername(user.getUsername());</span>
+<span class="fc" id="L52">        userDTO.setFullname(user.getFullname());</span>
+<span class="fc" id="L53">        userDTO.setPassword(user.getPassword());</span>
+<span class="fc" id="L54">        userDTO.setRole(user.getRole());</span>
+<span class="fc" id="L55">        return userDTO;</span>
     }
 
     public User updateUser(Integer id, UserDTO userDTO) {
-<span class="nc" id="L59">        User user = userRepository.findById(id)</span>
-<span class="nc" id="L60">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find user  by given id&quot;));</span>
-<span class="nc" id="L61">        user.setId(userDTO.getId());</span>
-<span class="nc" id="L62">        user.setUsername(userDTO.getUsername());</span>
-<span class="nc" id="L63">        user.setFullname(userDTO.getFullname());</span>
-<span class="nc" id="L64">        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
-<span class="nc" id="L65">        user.setRole(userDTO.getRole());</span>
-<span class="nc" id="L66">        return userRepository.save(user);</span>
+<span class="fc" id="L59">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L60">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find user  by given id&quot;));</span>
+<span class="fc" id="L61">        user.setId(userDTO.getId());</span>
+<span class="fc" id="L62">        user.setUsername(userDTO.getUsername());</span>
+<span class="fc" id="L63">        user.setFullname(userDTO.getFullname());</span>
+<span class="fc" id="L64">        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
+<span class="fc" id="L65">        user.setRole(userDTO.getRole());</span>
+<span class="fc" id="L66">        return userRepository.save(user);</span>
     }
 
     public void deleteUser(Integer id) {
-<span class="nc" id="L70">        User user = userRepository.findById(id)</span>
-<span class="nc" id="L71">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find user by this id&quot;));</span>
-<span class="nc" id="L72">        userRepository.delete(user);</span>
-<span class="nc" id="L73">    }</span>
+<span class="fc" id="L70">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L71">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find user by this id&quot;));</span>
+<span class="fc" id="L72">        userRepository.delete(user);</span>
+<span class="fc" id="L73">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

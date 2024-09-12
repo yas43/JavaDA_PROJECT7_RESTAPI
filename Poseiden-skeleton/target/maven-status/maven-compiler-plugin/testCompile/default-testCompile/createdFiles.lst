@@ -1,8 +1,12 @@
+com/nnk/springboot/control/RatingControllerTest.class
 com/nnk/springboot/control/BidListControllerTest.class
+com/nnk/springboot/control/RuleNameControllerTest.class
+com/nnk/springboot/service/UserServiceTest.class
 com/nnk/springboot/service/RuleNameServiceTest.class
 com/nnk/springboot/control/CurveControllerTest.class
+com/nnk/springboot/control/UserControllerTest.class
 com/nnk/springboot/service/CurvePointServiceTest.class
 com/nnk/springboot/service/RatingServiceTest.class
 com/nnk/springboot/service/BidListServiceTest.class
 com/nnk/springboot/service/TradeServiceTest.class
-com/nnk/springboot/service/PasswordEncodeTest.class
+com/nnk/springboot/control/TradeControllerTest.class

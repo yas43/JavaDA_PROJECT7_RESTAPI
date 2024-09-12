@@ -31,29 +31,29 @@ public class UserController {
     @GetMapping(&quot;/list&quot;)
     public String home(Model model)
     {
-<span class="nc" id="L34">        model.addAttribute(&quot;users&quot;, userService.displayAllUser());</span>
-<span class="nc" id="L35">        model.addAttribute(&quot;connectedUser&quot;,utils.currentUser().getFullname());</span>
-<span class="nc" id="L36">        return &quot;user/list&quot;;</span>
+<span class="fc" id="L34">        model.addAttribute(&quot;users&quot;, userService.displayAllUser());</span>
+<span class="fc" id="L35">        model.addAttribute(&quot;connectedUser&quot;,utils.currentUser().getFullname());</span>
+<span class="fc" id="L36">        return &quot;user/list&quot;;</span>
     }
 
     @GetMapping(&quot;/add&quot;)
     public String addUser(Model model) {
-<span class="nc" id="L41">        model.addAttribute(&quot;user&quot;,new UserDTO());</span>
-<span class="nc" id="L42">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L41">        model.addAttribute(&quot;user&quot;,new UserDTO());</span>
+<span class="fc" id="L42">        return &quot;user/add&quot;;</span>
     }
 
     @PostMapping(&quot;/validate&quot;)
     public String validate(@Valid @ModelAttribute(&quot;user&quot;) UserDTO userDTO, BindingResult result, Model model) {
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L48">            return &quot;user/add&quot;;</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L48">            return &quot;user/add&quot;;</span>
         } else {
 //            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            user.setPassword(encoder.encode(user.getPassword()));
 //            userRepository.save(user);
 //            model.addAttribute(&quot;users&quot;, userRepository.findAll());
-<span class="nc" id="L54">            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
-<span class="nc" id="L55">            userService.addUser(userDTO);</span>
-<span class="nc" id="L56">            return &quot;redirect:/admin/list&quot;;</span>
+<span class="fc" id="L54">            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
+<span class="fc" id="L55">            userService.addUser(userDTO);</span>
+<span class="fc" id="L56">            return &quot;redirect:/admin/list&quot;;</span>
         }
 //        return &quot;user/add&quot;;
     }
@@ -65,20 +65,20 @@ public class UserController {
 //        user.setPassword(&quot;&quot;);
 //        model.addAttribute(&quot;user&quot;, user);
 //        return &quot;user/update&quot;;
-<span class="nc" id="L68">        System.out.println(&quot;this is yaser received id is &quot;+ id);</span>
-<span class="nc" id="L69">        model.addAttribute(&quot;userDTO&quot;,userService.displayUserById(id));</span>
-<span class="nc" id="L70">        return &quot;user/update&quot;;</span>
+<span class="fc" id="L68">        System.out.println(&quot;this is yaser received id is &quot;+ id);</span>
+<span class="fc" id="L69">        model.addAttribute(&quot;userDTO&quot;,userService.displayUserById(id));</span>
+<span class="fc" id="L70">        return &quot;user/update&quot;;</span>
     }
 
     @PostMapping(&quot;/update/{id}&quot;)//place holder for password doesn't work
     public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid @ModelAttribute UserDTO userDTO,
                              BindingResult result, Model model) {
-<span class="nc" id="L76">        System.out.println(&quot;this is received id = &quot;+ id);</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L78">            return &quot;user/update&quot;;</span>
+<span class="fc" id="L76">        System.out.println(&quot;this is received id = &quot;+ id);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L78">            return &quot;user/update&quot;;</span>
         }else {
-<span class="nc" id="L80">            userService.updateUser(id, userDTO);</span>
-<span class="nc" id="L81">            return &quot;redirect:/admin/list&quot;;</span>
+<span class="fc" id="L80">            userService.updateUser(id, userDTO);</span>
+<span class="fc" id="L81">            return &quot;redirect:/admin/list&quot;;</span>
                 }
         }
 
@@ -96,8 +96,8 @@ public class UserController {
 //        userRepository.delete(user);
 //        model.addAttribute(&quot;users&quot;, userRepository.findAll());
 //        return &quot;redirect:/user/list&quot;;
-<span class="nc" id="L99">        userService.deleteUser(id);</span>
-<span class="nc" id="L100">        return &quot;redirect:/admin/list&quot;;</span>
+<span class="fc" id="L99">        userService.deleteUser(id);</span>
+<span class="fc" id="L100">        return &quot;redirect:/admin/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

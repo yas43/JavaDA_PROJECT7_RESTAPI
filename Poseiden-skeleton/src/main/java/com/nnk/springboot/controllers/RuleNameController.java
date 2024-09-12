@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("ruleName")
 public class RuleNameController {
-    // TODO: Inject RuleName service
+
     private final RuleNameService ruleNameService;
     private final Utils utils;
 
@@ -25,7 +25,7 @@ public class RuleNameController {
     @GetMapping("/list")
     public String home(Model model)
     {
-        // TODO: find all RuleName, add to model
+
         model.addAttribute("ruleNames",ruleNameService.displayAllRuleName());
         model.addAttribute("connectedUser",utils.currentUser().getFullname());
         return "ruleName/list";
@@ -38,8 +38,8 @@ public class RuleNameController {
     }
 
     @PostMapping("/validate")
-    public String validate(@Valid @ModelAttribute("ruleName") RulleNameDTO rulleNameDTO, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
+    public String validate(@Valid @ModelAttribute("ruleName") RulleNameDTO rulleNameDTO, BindingResult result) {
+
         if (result.hasErrors()) {
             return "ruleName/add";
         }else {
@@ -50,15 +50,15 @@ public class RuleNameController {
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+
         model.addAttribute("ruleName",ruleNameService.displayruleNameById(id));
         return "ruleName/update";
     }
 
     @PostMapping("/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RulleNameDTO rulleNameDTO,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+                             BindingResult result) {
+
         if (result.hasErrors()){
             return "redirect;/ruleName/update";
         }else {ruleNameService.updateRuleName(id,rulleNameDTO);
@@ -67,8 +67,8 @@ public class RuleNameController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+    public String deleteRuleName(@PathVariable("id") Integer id) {
+
         ruleNameService.deleteRuleName(id);
         return "redirect:/ruleName/list";
     }

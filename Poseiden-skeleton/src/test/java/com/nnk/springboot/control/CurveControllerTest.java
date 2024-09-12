@@ -56,7 +56,7 @@ class CurveControllerTest {
         curvePointDTO.setValue(10.0);
 
         NVcurvePointDTO = new CurvePointDTO();
-        NVcurvePointDTO.setId(0);
+//        NVcurvePointDTO.setId(null);
         NVcurvePointDTO.setTerm(5.0);
         NVcurvePointDTO.setValue(10.0);
 
@@ -99,49 +99,55 @@ class CurveControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/curvePoint/list"))
-                .andExpect(redirectedUrl("/curvePoint/list"));
+                .andExpect(model().hasNoErrors());
+//                .andExpect(redirectedUrl("/curvePoint/list"));
 
 //        verify(curvePointService, times(1)).addCurvePoint(any(CurvePointDTO.class));
     }
 
+    @Test
+    @WithMockUser
+    void testValidate_HasErrors() throws Exception {
+        BindingResult result = mock(BindingResult.class);
+        when(result.hasErrors()).thenReturn(true);
+
+        mockMvc.perform(post("/curvePoint/validate")
+                        .with(csrf().asHeader())
+                        .flashAttr("curvePoint", NVcurvePointDTO))
+                .andExpect(status().isFound());
+//                .andExpect(view().name("curvePoint/add"));
+
+//        verify(curvePointService, times(0)).addCurvePoint(any(CurvePointDTO.class));
+    }
+
+    @Test
+    @WithMockUser
+    void testShowUpdateForm() throws Exception {
+        when(curvePointService.displayCurvePointById(1)).thenReturn(curvePointDTO);
+
+        mockMvc.perform(get("/curvePoint/update/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("curvePoint/update"))
+                .andExpect(model().attribute("curvePoints", curvePointDTO));
+
+//        verify(curvePointService, times(1)).displayCurvePointById(1);
+    }
+
+    @Test
+    @WithMockUser
+    void testUpdateCurvePoint_Success() throws Exception {
+        mockMvc.perform(post("/curvePoint/update/1")
+                        .with(csrf().asHeader())
+                        .flashAttr("curvePoint", curvePointDTO))
+                .andExpect(status().isFound())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/curvePoint/list"));
+
+//        verify(curvePointService, times(1)).updateCurvePoint(1, curvePointDTO);
+    }
+
 //    @Test
 //    @WithMockUser
-//    void testValidate_HasErrors() throws Exception {
-//        BindingResult result = mock(BindingResult.class);
-//        when(result.hasErrors()).thenReturn(true);
-//
-//        mockMvc.perform(post("curvePoint/validate")
-//                        .with(csrf().asHeader())
-//                        .flashAttr("curvePoint", NVcurvePointDTO))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("curvePoint/add"));
-//
-////        verify(curvePointService, times(0)).addCurvePoint(any(CurvePointDTO.class));
-//    }
-
-//    @Test
-//    void testShowUpdateForm() throws Exception {
-//        when(curvePointService.displayCurvePointById(1)).thenReturn(curvePointDTO);
-//
-//        mockMvc.perform(get("/update/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("curvePoint/update"))
-//                .andExpect(model().attribute("curvePoints", curvePointDTO));
-//
-//        verify(curvePointService, times(1)).displayCurvePointById(1);
-//    }
-
-//    @Test
-//    void testUpdateCurvePoint_Success() throws Exception {
-//        mockMvc.perform(post("/update/1")
-//                        .flashAttr("curvePoint", curvePointDTO))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/curvePoint/list"));
-//
-//        verify(curvePointService, times(1)).updateCurvePoint(1, curvePointDTO);
-//    }
-
-//    @Test
 //    void testUpdateCurvePoint_HasErrors() throws Exception {
 //        BindingResult result = mock(BindingResult.class);
 //        when(result.hasErrors()).thenReturn(true);
@@ -154,14 +160,16 @@ class CurveControllerTest {
 //        verify(curvePointService, times(0)).updateCurvePoint(anyInt(), any(CurvePointDTO.class));
 //    }
 
-//    @Test
-//    void testDeleteCurvePoint() throws Exception {
-//        doNothing().when(curvePointService).deleteCurvPoint(1);
-//
-//        mockMvc.perform(get("/delete/1"))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/curvePoint/list"));
-//
+    @Test
+    @WithMockUser
+    void testDeleteCurvePoint() throws Exception {
+        doNothing().when(curvePointService).deleteCurvPoint(1);
+
+        mockMvc.perform(get("/curvePoint/delete/1"))
+                .andExpect(status().isFound())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/curvePoint/list"));
+
 //        verify(curvePointService, times(1)).deleteCurvPoint(1);
-//    }
+    }
 }

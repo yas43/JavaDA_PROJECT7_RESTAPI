@@ -26,6 +26,9 @@ public class User {
 
     }
 
+    public User(int i, String testUser, String testUser1, String password, String user) {
+    }
+
     public Integer getId() {
         return id;
     }

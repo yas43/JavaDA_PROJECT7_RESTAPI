@@ -1,0 +1,179 @@
+package com.nnk.springboot.control;
+
+
+import com.nnk.springboot.controllers.*;
+import com.nnk.springboot.domain.*;
+import com.nnk.springboot.domain.dto.*;
+import com.nnk.springboot.service.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.*;
+import org.springframework.security.test.context.support.*;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.BindingResult;
+
+import java.util.*;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(TradeController.class)
+public class TradeControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private TradeService tradeService;
+
+    @MockBean
+    private Utils utils;
+
+
+
+    private TradeDTO tradeDTO;
+    private TradeDTO NVtradeDTO;
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+//        mockMvc = MockMvcBuilders.standaloneSetup(tradeController).build();
+
+        tradeDTO = new TradeDTO();
+        tradeDTO.setTradeId(1);
+        tradeDTO.setAccount("Account1");
+        tradeDTO.setType("Type1");
+        tradeDTO.setBuyQuantity(100.0);
+
+        NVtradeDTO = new TradeDTO();
+        NVtradeDTO.setTradeId(1);
+        NVtradeDTO.setAccount("Account1");
+        NVtradeDTO.setType("");
+        NVtradeDTO.setBuyQuantity(100.0);
+
+        user = new User();
+        user.setFullname("testUser");
+    }
+
+    @Test
+    @WithMockUser
+    void testHome() throws Exception {
+//        List<TradeDTO> trades = Arrays.asList(tradeDTO);
+        when(tradeService.displayAllTrade()).thenReturn(Collections.emptyList());
+        when(utils.currentUser()).thenReturn(user);
+
+        mockMvc.perform(get("/trade/list"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("trade/list"))
+//                .andExpect(model().attribute("trades", trades))
+                .andExpect(model().attribute("trades", Collections.emptyList()));
+
+//        verify(tradeService, times(1)).displayAllTrade();
+//        verify(utils, times(1)).currentUser();
+    }
+
+    @Test
+    @WithMockUser
+    void testAddTradeForm() throws Exception {
+        mockMvc.perform(get("/trade/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("trade/add"));
+//                .andExpect(model().attributeExists("trade"));
+    }
+
+    @Test
+    @WithMockUser
+    void testValidate_Success() throws Exception {
+        mockMvc.perform(post("/trade/validate")
+                        .with(csrf().asHeader())
+                        .flashAttr("trade", tradeDTO))
+                .andExpect(status().isFound())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/trade/list"))
+                .andExpect(model().hasNoErrors());
+//                .andExpect(redirectedUrl("/trade/list"));
+
+//        verify(tradeService, times(1)).addTrade(any(TradeDTO.class));
+    }
+
+    @Test
+    @WithMockUser
+    void testValidate_HasErrors() throws Exception {
+        BindingResult result = mock(BindingResult.class);
+        when(result.hasErrors()).thenReturn(true);
+
+        mockMvc.perform(post("/trade/validate")
+                        .with(csrf().asHeader())
+                        .flashAttr("trade", NVtradeDTO))
+                .andExpect(status().isOk())
+                .andExpect(view().name("trade/add"));
+
+        verify(tradeService, times(0)).addTrade(any(TradeDTO.class));
+    }
+
+    @Test
+    @WithMockUser
+    void testShowUpdateForm() throws Exception {
+        when(tradeService.displayTradeById(anyInt())).thenReturn(tradeDTO);
+
+        mockMvc.perform(get("/trade/update/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("trade/update"))
+                .andExpect(model().attribute("trade", tradeDTO));
+
+        verify(tradeService, times(1)).displayTradeById(anyInt());
+    }
+
+    @Test
+    @WithMockUser
+    void testUpdateTrade_Success() throws Exception {
+        mockMvc.perform(post("/trade/update/1")
+                        .with(csrf().asHeader())
+                        .flashAttr("trade", tradeDTO))
+                .andExpect(status().isFound())
+                .andExpect(status().is3xxRedirection());
+//                .andExpect(redirectedUrl("/trade/list"));
+
+//        verify(tradeService, times(1)).updateTrade(anyInt(), any(TradeDTO.class));
+    }
+
+    @Test
+    @WithMockUser
+    void testUpdateTrade_HasErrors() throws Exception {
+        BindingResult result = mock(BindingResult.class);
+        when(result.hasErrors()).thenReturn(true);
+
+        mockMvc.perform(post("/trade/update/1")
+                        .with(csrf().asHeader())
+                        .flashAttr("trade", tradeDTO))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/trade/update"));
+
+        verify(tradeService, times(0)).updateTrade(anyInt(), any(TradeDTO.class));
+    }
+
+    @Test
+    @WithMockUser
+    void testDeleteTrade() throws Exception {
+        doNothing().when(tradeService).deleteTrade(anyInt());
+
+        mockMvc.perform(get("/trade/delete/1"))
+                .andExpect(status().isFound())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/trade/list"));
+
+//        verify(tradeService, times(1)).deleteTrade(anyInt());
+    }
+}
+

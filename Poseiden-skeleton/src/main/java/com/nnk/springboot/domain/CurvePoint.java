@@ -27,8 +27,7 @@ public class CurvePoint {
     Timestamp creationDate;
 
 
-    public CurvePoint(int i, double v, double v1) {
-    }
+
 
     public CurvePoint(int i, double v, double v1, Timestamp timestamp) {
     }

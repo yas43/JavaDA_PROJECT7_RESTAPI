@@ -61,7 +61,6 @@ public class CurveController {
             return "redirect:/curvePoint/update";
         }else {
             curvePointService.updateCurvePoint(id, curvePointDTO);
-//            model.addAttribute("curvePoints",curvePointService.updateCurvePoint(id, curvePointDTO));
             return "redirect:/curvePoint/list";
         }
     }

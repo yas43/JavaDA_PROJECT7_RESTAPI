@@ -20,7 +20,6 @@ public class UserRegistry {
 
     @PostMapping("adduser")
     public User registerUser(@RequestBody UserDTO userDTO){
-//        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setFullname(userDTO.getFullname());

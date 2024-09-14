@@ -4,27 +4,22 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.*;
 import org.springframework.security.test.context.support.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.*;
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -59,7 +54,6 @@ class UserServiceTest {
 
         assertNotNull(users);
         assertEquals(1, users.size());
-//        assertEquals("testUser", users.get(0).getUsername());
         verify(userRepository, times(1)).findAll();
     }
 
@@ -72,11 +66,10 @@ class UserServiceTest {
         User addedUser = userService.addUser(userDTO);
 
         assertNotNull(addedUser);
-//        assertEquals("encodedPassword", addedUser.getPassword());
         verify(passwordEncoder, times(1)).encode(anyString());
         verify(userRepository, times(1)).save(any(User.class));
     }
-//
+
     @Test
     @WithMockUser
     void testDisplayUserById_UserExists() {
@@ -85,11 +78,10 @@ class UserServiceTest {
         UserDTO foundUserDTO = userService.displayUserById(1);
 
         assertNotNull(foundUserDTO);
-//        assertEquals(1, foundUserDTO.getId());
-//        assertEquals("testUser", foundUserDTO.getUsername());
+
         verify(userRepository, times(1)).findById(anyInt());
     }
-//
+
     @Test
     @WithMockUser
     void testDisplayUserById_UserNotFound() {
@@ -102,7 +94,7 @@ class UserServiceTest {
         assertEquals("could not find user by this id", exception.getMessage());
         verify(userRepository, times(1)).findById(anyInt());
     }
-//
+
     @Test
     @WithMockUser
     void testUpdateUser_UserExists() {
@@ -118,7 +110,7 @@ class UserServiceTest {
         verify(userRepository, times(1)).save(any(User.class));
         verify(passwordEncoder, times(1)).encode(anyString());
     }
-//
+
     @Test
     @WithMockUser
     void testUpdateUser_UserNotFound() {
@@ -132,7 +124,7 @@ class UserServiceTest {
         verify(userRepository, times(1)).findById(anyInt());
         verify(userRepository, times(0)).save(any(User.class));
     }
-//
+
     @Test
     @WithMockUser
     void testDeleteUser_UserExists() {

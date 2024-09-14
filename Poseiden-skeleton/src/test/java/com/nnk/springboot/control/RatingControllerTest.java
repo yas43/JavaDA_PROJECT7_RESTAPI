@@ -5,25 +5,20 @@ import com.nnk.springboot.controllers.*;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.service.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.security.test.context.support.*;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
+import org.springframework.test.web.servlet.*;
+import org.springframework.validation.*;
 
 import java.util.*;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -39,8 +34,7 @@ public class RatingControllerTest {
     @MockBean
     private Utils utils;
 
-//    @InjectMocks
-//    private RatingController ratingController;
+
 
     private RatingDTO ratingDTO;
     private RatingDTO NVratingDTO;
@@ -49,7 +43,7 @@ public class RatingControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-//        mockMvc = MockMvcBuilders.standaloneSetup(ratingController).build();
+
 
         ratingDTO = new RatingDTO();
         ratingDTO.setId(1);
@@ -92,7 +86,7 @@ public class RatingControllerTest {
         mockMvc.perform(get("/rating/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("rating/add"));
-//                .andExpect(model().attributeExists("rating"));
+
     }
 
     @Test
@@ -105,7 +99,7 @@ public class RatingControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/rating/list"))
                 .andExpect(model().hasNoErrors());
-//                .andExpect(redirectedUrl("/rating/list"));
+
 
         verify(ratingService, times(1)).addRating(any(RatingDTO.class));
     }
@@ -148,7 +142,7 @@ public class RatingControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/rating/list"));
 
-//        verify(ratingService, times(1)).updateRating(anyInt(), any(RatingDTO.class));
+
     }
 
     @Test
@@ -163,7 +157,7 @@ public class RatingControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/rating/list"));
 
-//        verify(ratingService, times(0)).updateRating(anyInt(), any(RatingDTO.class));
+
     }
 
     @Test
@@ -176,7 +170,6 @@ public class RatingControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/rating/list"));
 
-//        verify(ratingService, times(1)).deleteRating(anyInt());
     }
 }
 

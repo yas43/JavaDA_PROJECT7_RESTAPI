@@ -5,26 +5,22 @@ import com.nnk.springboot.controllers.*;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.service.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.*;
 import org.springframework.security.test.context.support.*;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
+import org.springframework.test.web.servlet.*;
+import org.springframework.validation.*;
 
 import java.util.*;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -43,8 +39,7 @@ public class UserControllerTest {
     @MockBean
     private Utils utils;
 
-//    @InjectMocks
-//    private UserController userController;
+
 
     private UserDTO userDTO;
     private UserDTO NVuserDTO;
@@ -53,7 +48,7 @@ public class UserControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-//        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+
 
         userDTO = new UserDTO();
         userDTO.setId(1);
@@ -79,14 +74,13 @@ public class UserControllerTest {
     @Test
     @WithMockUser
     void testHome() throws Exception {
-//        List<UserDTO> users = Arrays.asList(userDTO);
+
         when(userService.displayAllUser()).thenReturn(Collections.emptyList());
         when(utils.currentUser()).thenReturn(user);
 
         mockMvc.perform(get("/admin/list"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/list"))
-//                .andExpect(model().attribute("users", users))
                 .andExpect(model().attribute("users", Collections.emptyList()));
 
         verify(userService, times(1)).displayAllUser();
@@ -99,24 +93,23 @@ public class UserControllerTest {
         mockMvc.perform(get("/admin/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/add"));
-//                .andExpect(model().attributeExists("user"));
+
     }
 
     @Test
     @WithMockUser(username = "user",roles = "ADMIN")
     void testValidate_Success() throws Exception {
-//        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
+
 
         mockMvc.perform(post("/admin/validate")
                         .with(csrf().asHeader())
                         .flashAttr("user", userDTO))
                 .andExpect(status().isFound())
-//                .andExpect(status().is3xxRedirection());
                 .andExpect(view().name("redirect:/admin/list"))
                 .andExpect(model().hasNoErrors())
                 .andExpect(redirectedUrl("/admin/list"));
 
-//        verify(passwordEncoder, times(1)).encode(anyString());
+
         verify(userService, times(1)).addUser(any(UserDTO.class));
     }
 

@@ -30,7 +30,6 @@ public class Trade {
     Double sellQuantity;
     Double buyPrice;
     Double sellPrice;
-//    @Temporal(TemporalType.TIMESTAMP)
     Timestamp tradeDate;
     @Size(max = 125)
     String security;
@@ -47,7 +46,7 @@ public class Trade {
     Timestamp creationDate;
     @Size(max = 125)
     String revisionName;
-//    @Temporal(TemporalType.TIMESTAMP)
+
     Timestamp revisionDate;
     @Size(max = 125)
     String dealName;
@@ -58,8 +57,7 @@ public class Trade {
     @Size(max = 125)
     String side;
 
-    public Trade(String tradeAccount, String type) {
-    }
+
 
     public Trade(int i, String account1, String type1, double v, Timestamp timestamp) {
     }

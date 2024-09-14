@@ -3,21 +3,17 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
-import com.nnk.springboot.service.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.*;
+import org.mockito.junit.jupiter.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -101,10 +97,7 @@ public class RuleNameServiceTest {
     public void testDisplayRuleNameById_NotFound() {
         when(ruleNameRepository.findById(1)).thenReturn(Optional.empty());
 
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> ruleNameService.displayruleNameById(1));
-//        assertEquals("could not find rule name by this id", exception.getMessage());
 
-//        verify(ruleNameRepository, times(1)).findById(1);
         assertThrows(RuntimeException.class,()->ruleNameService.displayruleNameById(1));
     }
 

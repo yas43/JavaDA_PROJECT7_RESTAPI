@@ -50,35 +50,6 @@ public class BidListService {
                             ,bidList.getBidQuantity());
                 })
                 .collect(toList());
-
-
-//        List<BidList> bidLists = bidListRepository.findAll();
-//        List<BidListDTO> bidListDTOS = new LinkedList<>();
-//        for (BidList bidList:bidLists){
-//            BidListDTO bidListDTO = new BidListDTO();
-//            bidListDTO.setId(bidList.getBidListId());
-//            bidListDTO.setAccount(bidList.getAccount());
-//            bidListDTO.setType(bidList.getType());
-//            bidListDTO.setBidQuantity(bidList.getBidQuantity());
-//            bidListDTOS.add(bidListDTO);
-//        }
-//        return bidListDTOS;
-
-
-
-
-// TO DO : IF IT CAN BE WRITTEN BY STREAMS
-        //        return bidLists;
-//      return   bidLists
-//              .stream()
-//              .map(bidList -> {
-//                    new BidListDTO(bidList.getAccount(), bidList.getType(), bidList.getBidQuantity());
-//                }
-//                .collect(Collectors.toList()));
-
-
-
-
     }
 
     /**

@@ -1,12 +1,11 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.service.*;
 import jakarta.validation.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
 

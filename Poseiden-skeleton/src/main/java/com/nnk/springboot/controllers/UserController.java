@@ -1,16 +1,12 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.domain.dto.*;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.*;
 import jakarta.validation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.password.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -47,24 +43,17 @@ public class UserController {
         if (result.hasErrors()) {
             return "user/add";
         } else {
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            user.setPassword(encoder.encode(user.getPassword()));
-//            userRepository.save(user);
-//            model.addAttribute("users", userRepository.findAll());
+
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             userService.addUser(userDTO);
             return "redirect:/admin/list";
         }
-//        return "user/add";
     }
 
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//        user.setPassword("");
-//        model.addAttribute("user", user);
-//        return "user/update";
+
         System.out.println("this is yaser received id is "+ id);
         model.addAttribute("userDTO",userService.displayUserById(id));
         return "user/update";
@@ -82,20 +71,11 @@ public class UserController {
                 }
         }
 
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        user.setPassword(encoder.encode(user.getPassword()));
-//        user.setId(id);
-//        userRepository.save(user);
-//        model.addAttribute("users", userRepository.findAll());
-//        return "redirect:/user/list";
-//    }
+
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//        userRepository.delete(user);
-//        model.addAttribute("users", userRepository.findAll());
-//        return "redirect:/user/list";
+
         userService.deleteUser(id);
         return "redirect:/admin/list";
     }

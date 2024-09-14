@@ -5,25 +5,20 @@ import com.nnk.springboot.controllers.*;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.service.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.security.test.context.support.*;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
+import org.springframework.test.web.servlet.*;
+import org.springframework.validation.*;
 
 import java.util.*;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,7 +43,7 @@ public class TradeControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-//        mockMvc = MockMvcBuilders.standaloneSetup(tradeController).build();
+
 
         tradeDTO = new TradeDTO();
         tradeDTO.setTradeId(1);
@@ -69,18 +64,17 @@ public class TradeControllerTest {
     @Test
     @WithMockUser
     void testHome() throws Exception {
-//        List<TradeDTO> trades = Arrays.asList(tradeDTO);
+
         when(tradeService.displayAllTrade()).thenReturn(Collections.emptyList());
         when(utils.currentUser()).thenReturn(user);
 
         mockMvc.perform(get("/trade/list"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("trade/list"))
-//                .andExpect(model().attribute("trades", trades))
                 .andExpect(model().attribute("trades", Collections.emptyList()));
 
-//        verify(tradeService, times(1)).displayAllTrade();
-//        verify(utils, times(1)).currentUser();
+
+
     }
 
     @Test
@@ -89,7 +83,7 @@ public class TradeControllerTest {
         mockMvc.perform(get("/trade/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("trade/add"));
-//                .andExpect(model().attributeExists("trade"));
+
     }
 
     @Test
@@ -102,9 +96,7 @@ public class TradeControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/trade/list"))
                 .andExpect(model().hasNoErrors());
-//                .andExpect(redirectedUrl("/trade/list"));
 
-//        verify(tradeService, times(1)).addTrade(any(TradeDTO.class));
     }
 
     @Test
@@ -143,9 +135,7 @@ public class TradeControllerTest {
                         .flashAttr("trade", tradeDTO))
                 .andExpect(status().isFound())
                 .andExpect(status().is3xxRedirection());
-//                .andExpect(redirectedUrl("/trade/list"));
 
-//        verify(tradeService, times(1)).updateTrade(anyInt(), any(TradeDTO.class));
     }
 
     @Test
@@ -173,7 +163,7 @@ public class TradeControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/trade/list"));
 
-//        verify(tradeService, times(1)).deleteTrade(anyInt());
+
     }
 }
 

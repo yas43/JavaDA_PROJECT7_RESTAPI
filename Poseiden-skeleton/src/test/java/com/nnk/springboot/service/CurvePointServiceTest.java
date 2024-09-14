@@ -3,28 +3,18 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.*;
 import com.nnk.springboot.domain.dto.*;
 import com.nnk.springboot.repositories.*;
-import com.nnk.springboot.service.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.*;
+import org.mockito.junit.jupiter.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.autoconfigure.web.servlet.*;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.test.context.junit4.*;
 
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.sql.*;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -99,11 +89,6 @@ public class CurvePointServiceTest {
     @Test
     public void testDisplayCurvePointById_NotFound() {
         when(curvePointRepository.findById(1)).thenReturn(Optional.empty());
-
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> curvePointService.displayCurvePointById(1));
-//        assertEquals("could not find a curve point by this id", exception.getMessage());
-//
-//        verify(curvePointRepository, times(1)).findById(1);
 
         assertThrows(RuntimeException.class, () -> curvePointService.displayCurvePointById(1));
     }

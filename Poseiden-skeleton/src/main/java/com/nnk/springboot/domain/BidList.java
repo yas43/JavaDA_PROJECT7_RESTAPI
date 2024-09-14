@@ -63,8 +63,7 @@ public class BidList {
     String side;
 
 
-    public BidList(String accountTest, String typeTest, double v) {
-    }
+
 
     public BidList(int i, String account1, String type1, double v, Timestamp timestamp) {
     }

@@ -32,17 +32,17 @@ public class RuleNameController {
 
     @GetMapping("/add")
     public String addRuleForm(Model model) {
-        model.addAttribute("ruleName",new RulleNameDTO());
+        model.addAttribute("ruleName",new RuleNameDTO());
         return "ruleName/add";
     }
 
     @PostMapping("/validate")
-    public String validate(@Valid @ModelAttribute("ruleName") RulleNameDTO rulleNameDTO, BindingResult result) {
+    public String validate(@Valid @ModelAttribute("ruleName") RuleNameDTO ruleNameDTO, BindingResult result) {
 
         if (result.hasErrors()) {
             return "ruleName/add";
         }else {
-            ruleNameService.addRuleName(rulleNameDTO);
+            ruleNameService.addRuleName(ruleNameDTO);
             return "redirect:/ruleName/list";
         }
     }
@@ -50,25 +50,27 @@ public class RuleNameController {
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("ruleName",ruleNameService.displayruleNameById(id));
+        model.addAttribute(ruleNameService.displayruleNameById(id));
         return "ruleName/update";
     }
 
     @PostMapping("/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RulleNameDTO rulleNameDTO,
-                             BindingResult result) {
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleNameDTO ruleNameDTO,
+                             BindingResult result,Model model) {
 
         if (result.hasErrors()){
-            return "redirect;/ruleName/update";
-        }else {ruleNameService.updateRuleName(id,rulleNameDTO);
+            return "ruleName/update";
+        }else {
+            model.addAttribute("ruleNames",ruleNameService.updateRuleName(id, ruleNameDTO));
             return "redirect:/ruleName/list";
         }
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id) {
+    public String deleteRuleName(@PathVariable("id") Integer id,Model model) {
 
         ruleNameService.deleteRuleName(id);
-        return "redirect:/ruleName/list";
+        model.addAttribute("ruleNames",ruleNameService.displayAllRuleName());
+        return "ruleName/list";
     }
 }

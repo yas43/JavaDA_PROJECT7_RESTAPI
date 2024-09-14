@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RulleNameDTO {
+public class RuleNameDTO {
     Integer id;
     @Size(max = 125)
     String name;

@@ -35,7 +35,7 @@ public class RuleNameControllerTest {
 
 
 
-    private RulleNameDTO rulleNameDTO;
+    private RuleNameDTO ruleNameDTO;
     private RuleName NVrullName;
     private User user;
 
@@ -44,13 +44,13 @@ public class RuleNameControllerTest {
         MockitoAnnotations.openMocks(this);
 
 
-        rulleNameDTO = new RulleNameDTO();
-        rulleNameDTO.setId(1);
-        rulleNameDTO.setName("Rule Name 1");
-        rulleNameDTO.setDescription("Description 1");
-        rulleNameDTO.setJson("json");
-        rulleNameDTO.setTemplate("template");
-        rulleNameDTO.setSqlPart("sql part");
+        ruleNameDTO = new RuleNameDTO();
+        ruleNameDTO.setId(1);
+        ruleNameDTO.setName("Rule Name 1");
+        ruleNameDTO.setDescription("Description 1");
+        ruleNameDTO.setJson("json");
+        ruleNameDTO.setTemplate("template");
+        ruleNameDTO.setSqlPart("sql part");
 
 
         NVrullName = new RuleName();
@@ -94,7 +94,7 @@ public class RuleNameControllerTest {
     void testValidate_Success() throws Exception {
         mockMvc.perform(post("/ruleName/validate")
                         .with(csrf().asHeader())
-                        .flashAttr("ruleName", rulleNameDTO))
+                        .flashAttr("ruleName", ruleNameDTO))
                 .andExpect(status().isFound())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/ruleName/list"))
@@ -107,12 +107,12 @@ public class RuleNameControllerTest {
     @Test
     @WithMockUser
     void testShowUpdateForm() throws Exception {
-        when(ruleNameService.displayruleNameById(anyInt())).thenReturn(rulleNameDTO);
+        when(ruleNameService.displayruleNameById(anyInt())).thenReturn(ruleNameDTO);
 
         mockMvc.perform(get("/ruleName/update/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("ruleName/update"))
-                .andExpect(model().attribute("ruleName", rulleNameDTO));
+                .andExpect(model().attribute("ruleName", ruleNameDTO));
 
 
     }
@@ -122,7 +122,7 @@ public class RuleNameControllerTest {
     void testUpdateRuleName_Success() throws Exception {
         mockMvc.perform(post("/ruleName/update/1")
                         .with(csrf().asHeader())
-                        .flashAttr("ruleName", rulleNameDTO))
+                        .flashAttr("ruleName", ruleNameDTO))
                 .andExpect(status().isFound())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/ruleName/list"));

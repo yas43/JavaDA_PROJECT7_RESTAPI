@@ -27,7 +27,7 @@ public class RuleNameServiceTest {
     private RuleNameService ruleNameService;
 
     private RuleName ruleName;
-    private RulleNameDTO rulleNameDTO;
+    private RuleNameDTO ruleNameDTO;
 
     @BeforeEach
     public void setUp() {
@@ -40,14 +40,14 @@ public class RuleNameServiceTest {
         ruleName.setTemplate("Test Template");
         ruleName.setSqlPart("Test SQL Part");
 
-        rulleNameDTO = new RulleNameDTO();
-        rulleNameDTO.setId(1);
-        rulleNameDTO.setName("Test Name");
-        rulleNameDTO.setDescription("Test Description");
-        rulleNameDTO.setJson("Test Json");
-        rulleNameDTO.setSqlStr("Test SQL String");
-        rulleNameDTO.setTemplate("Test Template");
-        rulleNameDTO.setSqlPart("Test SQL Part");
+        ruleNameDTO = new RuleNameDTO();
+        ruleNameDTO.setId(1);
+        ruleNameDTO.setName("Test Name");
+        ruleNameDTO.setDescription("Test Description");
+        ruleNameDTO.setJson("Test Json");
+        ruleNameDTO.setSqlStr("Test SQL String");
+        ruleNameDTO.setTemplate("Test Template");
+        ruleNameDTO.setSqlPart("Test SQL Part");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class RuleNameServiceTest {
 
         when(ruleNameRepository.findAll()).thenReturn(Arrays.asList(ruleName1, ruleName2));
 
-        List<RulleNameDTO> result = ruleNameService.displayAllRuleName();
+        List<RuleNameDTO> result = ruleNameService.displayAllRuleName();
 
         assertEquals(2, result.size());
         assertEquals(ruleName1.getId(), result.get(0).getId());
@@ -70,7 +70,7 @@ public class RuleNameServiceTest {
     public void testAddRuleName() {
         when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
 
-        RuleName result = ruleNameService.addRuleName(rulleNameDTO);
+        RuleName result = ruleNameService.addRuleName(ruleNameDTO);
 
         assertNotNull(result);
         assertEquals(ruleName.getId(), result.getId());
@@ -84,7 +84,7 @@ public class RuleNameServiceTest {
     public void testDisplayRuleNameById() {
         when(ruleNameRepository.findById(1)).thenReturn(Optional.of(ruleName));
 
-        RulleNameDTO result = ruleNameService.displayruleNameById(1);
+        RuleNameDTO result = ruleNameService.displayruleNameById(1);
 
         assertEquals(ruleName.getId(), result.getId());
         assertEquals(ruleName.getName(), result.getName());
@@ -106,12 +106,12 @@ public class RuleNameServiceTest {
         when(ruleNameRepository.findById(1)).thenReturn(Optional.of(ruleName));
         when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
 
-        RuleName updatedRuleName = ruleNameService.updateRuleName(1, rulleNameDTO);
+        RuleName updatedRuleName = ruleNameService.updateRuleName(1, ruleNameDTO);
 
         assertNotNull(updatedRuleName);
-        assertEquals(rulleNameDTO.getId(), updatedRuleName.getId());
-        assertEquals(rulleNameDTO.getName(), updatedRuleName.getName());
-        assertEquals(rulleNameDTO.getDescription(), updatedRuleName.getDescription());
+        assertEquals(ruleNameDTO.getId(), updatedRuleName.getId());
+        assertEquals(ruleNameDTO.getName(), updatedRuleName.getName());
+        assertEquals(ruleNameDTO.getDescription(), updatedRuleName.getDescription());
 
         verify(ruleNameRepository, times(1)).findById(1);
         verify(ruleNameRepository, times(1)).save(any(RuleName.class));

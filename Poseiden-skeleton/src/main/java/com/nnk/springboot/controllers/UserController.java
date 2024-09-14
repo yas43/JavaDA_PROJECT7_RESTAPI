@@ -54,15 +54,15 @@ public class UserController {
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        System.out.println("this is yaser received id is "+ id);
+
         model.addAttribute("userDTO",userService.displayUserById(id));
         return "user/update";
     }
 
-    @PostMapping("/update/{id}")//place holder for password doesn't work
+    @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute UserDTO userDTO,
-                             BindingResult result, Model model) {
-        System.out.println("this is received id = "+ id);
+                             BindingResult result) {
+
         if (result.hasErrors()) {
             return "user/update";
         }else {

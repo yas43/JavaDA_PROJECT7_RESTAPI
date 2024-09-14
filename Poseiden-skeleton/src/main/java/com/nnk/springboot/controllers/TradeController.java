@@ -51,7 +51,7 @@ public class TradeController {
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("trade",tradeService.displayTradeById(id));
+        model.addAttribute("tradeDTO",tradeService.displayTradeById(id));
         return "trade/update";
     }
 
@@ -60,7 +60,7 @@ public class TradeController {
                              BindingResult result) {
 
         if (result.hasErrors()) {
-            return "redirect:/trade/update";
+            return "trade/update";
         }else {
             tradeService.updateTrade(id,tradeDTO);
             return "redirect:/trade/list";

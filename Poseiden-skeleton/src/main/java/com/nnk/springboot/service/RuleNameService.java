@@ -6,7 +6,6 @@ import com.nnk.springboot.repositories.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
-import java.util.stream.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -22,12 +21,12 @@ public class RuleNameService {
      * Find list ruleName and Convert ruleNameDto
      * @return the list of BidListDto
      */
-    public List<RulleNameDTO> displayAllRuleName() {
+    public List<RuleNameDTO> displayAllRuleName() {
         return ruleNameRepository.findAll()
                 .stream()
                 .map(
                         ruleName -> {
-                            return new RulleNameDTO(ruleName.getId(),
+                            return new RuleNameDTO(ruleName.getId(),
                                     ruleName.getName(),
                                     ruleName.getDescription(),
                                     ruleName.getJson(),
@@ -42,17 +41,17 @@ public class RuleNameService {
 
     /**
      * adding new ruleName to database , convert ruleNameDTO to bisList
-     * @param rulleNameDTO given ruleName by user
+     * @param ruleNameDTO given ruleName by user
      * @return accepted bidList save in DB
      */
-    public RuleName addRuleName(RulleNameDTO rulleNameDTO) {
+    public RuleName addRuleName(RuleNameDTO ruleNameDTO) {
         RuleName ruleName = new RuleName();
-        ruleName.setName(rulleNameDTO.getName());
-        ruleName.setDescription(rulleNameDTO.getDescription());
-        ruleName.setJson(rulleNameDTO.getJson());
-        ruleName.setTemplate(rulleNameDTO.getTemplate());
-        ruleName.setSqlPart(rulleNameDTO.getSqlPart());
-        ruleName.setSqlStr(rulleNameDTO.getSqlStr());
+        ruleName.setName(ruleNameDTO.getName());
+        ruleName.setDescription(ruleNameDTO.getDescription());
+        ruleName.setJson(ruleNameDTO.getJson());
+        ruleName.setTemplate(ruleNameDTO.getTemplate());
+        ruleName.setSqlPart(ruleNameDTO.getSqlPart());
+        ruleName.setSqlStr(ruleNameDTO.getSqlStr());
         return ruleNameRepository.save(ruleName);
     }
 
@@ -61,36 +60,36 @@ public class RuleNameService {
      * @param id id
      * @return corresponding ruleName  or issue ruleNameNotFoundException
      */
-    public RulleNameDTO displayruleNameById(Integer id) {
+    public RuleNameDTO displayruleNameById(Integer id) {
         RuleName ruleName = ruleNameRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find rule name by this id"));
-        RulleNameDTO rulleNameDTO = new RulleNameDTO();
-        rulleNameDTO.setId(ruleName.getId());
-        rulleNameDTO.setName(ruleName.getName());
-        rulleNameDTO.setDescription(ruleName.getDescription());
-        rulleNameDTO.setTemplate(ruleName.getTemplate());
-        rulleNameDTO.setJson(ruleName.getJson());
-        rulleNameDTO.setSqlPart(ruleName.getSqlPart());
-        rulleNameDTO.setSqlStr(ruleName.getSqlStr());
-        return rulleNameDTO;
+        RuleNameDTO ruleNameDTO = new RuleNameDTO();
+        ruleNameDTO.setId(ruleName.getId());
+        ruleNameDTO.setName(ruleName.getName());
+        ruleNameDTO.setDescription(ruleName.getDescription());
+        ruleNameDTO.setTemplate(ruleName.getTemplate());
+        ruleNameDTO.setJson(ruleName.getJson());
+        ruleNameDTO.setSqlPart(ruleName.getSqlPart());
+        ruleNameDTO.setSqlStr(ruleName.getSqlStr());
+        return ruleNameDTO;
     }
 
     /**
      * Updates an existing ruleName object with the provided new values.
      * @param id the ID of the ruleName object to update.
-     * @param rulleNameDTO  the ruleName object containing the new values.
+     * @param ruleNameDTO  the ruleName object containing the new values.
      * @return the updated ruleName object saved to the database.
      */
-    public RuleName updateRuleName(Integer id, RulleNameDTO rulleNameDTO) {
+    public RuleName updateRuleName(Integer id, RuleNameDTO ruleNameDTO) {
         RuleName ruleName = ruleNameRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find rule name by given id"));
-        ruleName.setId(rulleNameDTO.getId());
-        ruleName.setName(rulleNameDTO.getName());
-        ruleName.setDescription(rulleNameDTO.getDescription());
-        ruleName.setJson(rulleNameDTO.getJson());
-        ruleName.setTemplate(rulleNameDTO.getTemplate());
-        ruleName.setSqlStr(rulleNameDTO.getSqlStr());
-        ruleName.setSqlPart(rulleNameDTO.getSqlPart());
+        ruleName.setId(ruleNameDTO.getId());
+        ruleName.setName(ruleNameDTO.getName());
+        ruleName.setDescription(ruleNameDTO.getDescription());
+        ruleName.setJson(ruleNameDTO.getJson());
+        ruleName.setTemplate(ruleNameDTO.getTemplate());
+        ruleName.setSqlStr(ruleNameDTO.getSqlStr());
+        ruleName.setSqlPart(ruleNameDTO.getSqlPart());
         return ruleNameRepository.save(ruleName);
     }
 

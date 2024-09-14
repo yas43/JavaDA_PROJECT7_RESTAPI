@@ -18,6 +18,10 @@ public class RuleNameService {
         this.ruleNameRepository = ruleNameRepository;
     }
 
+    /**
+     * Find list ruleName and Convert ruleNameDto
+     * @return the list of BidListDto
+     */
     public List<RulleNameDTO> displayAllRuleName() {
         return ruleNameRepository.findAll()
                 .stream()
@@ -36,6 +40,11 @@ public class RuleNameService {
 
     }
 
+    /**
+     * adding new ruleName to database , convert ruleNameDTO to bisList
+     * @param rulleNameDTO given ruleName by user
+     * @return accepted bidList save in DB
+     */
     public RuleName addRuleName(RulleNameDTO rulleNameDTO) {
         RuleName ruleName = new RuleName();
         ruleName.setName(rulleNameDTO.getName());
@@ -47,6 +56,11 @@ public class RuleNameService {
         return ruleNameRepository.save(ruleName);
     }
 
+    /**
+     * find ruleName by via id , convert to ruleNameDTO
+     * @param id id
+     * @return corresponding ruleName  or issue ruleNameNotFoundException
+     */
     public RulleNameDTO displayruleNameById(Integer id) {
         RuleName ruleName = ruleNameRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find rule name by this id"));
@@ -61,6 +75,12 @@ public class RuleNameService {
         return rulleNameDTO;
     }
 
+    /**
+     * Updates an existing ruleName object with the provided new values.
+     * @param id the ID of the ruleName object to update.
+     * @param rulleNameDTO  the ruleName object containing the new values.
+     * @return the updated ruleName object saved to the database.
+     */
     public RuleName updateRuleName(Integer id, RulleNameDTO rulleNameDTO) {
         RuleName ruleName = ruleNameRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find rule name by given id"));
@@ -74,6 +94,10 @@ public class RuleNameService {
         return ruleNameRepository.save(ruleName);
     }
 
+    /**
+     * Deletes a ruleName object by its ID.
+     * @param id the ID of the ruleName object to delete.
+     */
     public void deleteRuleName(Integer id) {
         RuleName ruleName = ruleNameRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find rule name by this id"));

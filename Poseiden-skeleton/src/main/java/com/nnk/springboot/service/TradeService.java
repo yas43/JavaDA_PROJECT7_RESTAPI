@@ -16,7 +16,10 @@ public class TradeService {
         this.tradeRepository = tradeRepository;
     }
 
-
+    /**
+     * Find list trade and Convert tradeDto
+     * @return the list of tradeDto
+     */
     public Object displayAllTrade() {
         return tradeRepository.findAll()
                 .stream()
@@ -30,6 +33,11 @@ public class TradeService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * adding new trade to database , convert tradeDTO to trade
+     * @param tradeDTO given trade by user
+     * @return accepted trade save in DB
+     */
     public Trade addTrade(TradeDTO tradeDTO) {
         Trade trade = new Trade();
         trade.setAccount(tradeDTO.getAccount());
@@ -39,6 +47,11 @@ public class TradeService {
         return tradeRepository.save(trade);
     }
 
+    /**
+     * find trade by via id , convert to tradeDTO
+     * @param id id of trade entity
+     * @return corresponding trade or issue tradeNotFoundException
+     */
     public TradeDTO displayTradeById(Integer id) {
         Trade trade = tradeRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find a trade by this id"));
@@ -50,6 +63,12 @@ public class TradeService {
         return tradeDTO;
     }
 
+    /**
+     * Updates an existing trade object with the provided new values.
+     * @param id the ID of the trade object to update.
+     * @param tradeDTO bid the trade object containing the new values.
+     * @return RuntimeException if the provided ID does not match any object in the database
+     */
     public Trade updateTrade(Integer id, TradeDTO tradeDTO) {
         Trade trade = tradeRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find trade by given id"));
@@ -60,6 +79,10 @@ public class TradeService {
         return tradeRepository.save(trade);
     }
 
+    /**
+     * Deletes a trade object by its ID.
+     * @param id the ID of the trade object to delete.
+     */
     public void deleteTrade(Integer id) {
         Trade trade = tradeRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find trade by this id"));

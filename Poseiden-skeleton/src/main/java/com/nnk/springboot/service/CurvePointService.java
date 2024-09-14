@@ -17,6 +17,10 @@ public class CurvePointService {
         this.curvePointRepository = curvePointRepository;
     }
 
+    /**
+     * Find list CurvePoint and Convert curvePointDto
+     * @return the list of curvePoint
+     */
     public List<CurvePointDTO> displayAllCurvePoint() {
 
       return curvePointRepository.findAll()
@@ -30,6 +34,11 @@ public class CurvePointService {
                .collect(Collectors.toList());
     }
 
+    /**
+     * adding new CurvePoint to database , convert curvePointDto to CurvePoint
+     * @param curvePointDTO given bidList by user
+     * @return accepted CurvePoint save in DB
+     */
     public CurvePoint addCurvePoint(CurvePointDTO curvePointDTO) {
         CurvePoint curvePoint = new CurvePoint();
         curvePoint.setTerm(curvePointDTO.getTerm());
@@ -38,6 +47,11 @@ public class CurvePointService {
         return curvePointRepository.save(curvePoint);
     }
 
+    /**
+     * find bidList by via id , convert to curvePointDto
+     * @param id id
+     * @return the  corresponding CurvePoint  or issue CurvePointNotFoundException
+     */
     public CurvePointDTO displayCurvePointById(Integer id) {
         CurvePoint  curvePoint = curvePointRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find a curve point by this id"));
@@ -48,6 +62,12 @@ public class CurvePointService {
         return curvePointDTO;
     }
 
+    /**
+     * Updates an existing CurvePoint object with the provided new values.
+     * @param id the ID of the CurvePoint object to update.
+     * @param curvePointDTO bid the CurvePoint object containing the new values.
+     * @return RuntimeException if the provided ID does not match any object in the database
+     */
     public CurvePoint updateCurvePoint(Integer id,CurvePointDTO curvePointDTO){
         CurvePoint curvePoint = curvePointRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find curve point by given id"));
@@ -57,6 +77,10 @@ public class CurvePointService {
         return curvePointRepository.save(curvePoint);
     }
 
+    /**
+     * Deletes a CurvePoint object by its ID
+     * @param id the ID of the CurvePoint object to delete.
+     */
     public void deleteCurvPoint(Integer id) {
         CurvePoint curvePoint =  curvePointRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find curve point by this id"));

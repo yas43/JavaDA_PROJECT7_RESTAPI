@@ -19,7 +19,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
+    /**
+     * Find list user and Convert userDto
+     * @return the list of userDto
+     */
     public List<UserDTO> displayAllUser() {
         return userRepository.findAll()
                 .stream()
@@ -34,6 +37,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * adding new user to database , convert userDTO to user
+     * @param userDTO given info by user
+     * @return accepted user save in DB
+     */
     public User addUser(UserDTO userDTO) {
         User user = new User();
         user.setFullname(userDTO.getFullname());
@@ -43,6 +51,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * find user by via id , convert to userDTO
+     * @param id id of user in DB
+     * @return the  corresponding user  or issue userNotFoundException
+     */
     public UserDTO displayUserById(Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find user by this id"));
@@ -55,6 +68,12 @@ public class UserService {
         return userDTO;
     }
 
+    /**
+     * Updates an existing user object with the provided new values.
+     * @param id the ID of the user object to update.
+     * @param userDTO bid the user object containing the new values.
+     * @return the updated user object saved to the database.
+     */
     public User updateUser(Integer id, UserDTO userDTO) {
         User user = userRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find user  by given id"));
@@ -66,6 +85,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Deletes a user object by its ID.
+     * @param id the ID of the user object to delete.
+     */
     public void deleteUser(Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("could not find user by this id"));

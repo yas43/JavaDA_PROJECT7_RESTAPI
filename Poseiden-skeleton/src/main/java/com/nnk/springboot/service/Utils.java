@@ -18,6 +18,10 @@ public class Utils {
         this.userRepository = userRepository;
     }
 
+    /**
+     * give user who is login
+     * @return existing user in DB who is login
+     */
     public User currentUser(){
        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
        Object principle = authentication.getPrincipal();

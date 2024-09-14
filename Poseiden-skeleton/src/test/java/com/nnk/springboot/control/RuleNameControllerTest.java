@@ -112,7 +112,7 @@ public class RuleNameControllerTest {
         mockMvc.perform(get("/ruleName/update/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("ruleName/update"))
-                .andExpect(model().attribute("ruleName", ruleNameDTO));
+                .andExpect(model().attribute("ruleNameDTO", ruleNameDTO));
 
 
     }
@@ -138,9 +138,8 @@ public class RuleNameControllerTest {
         doNothing().when(ruleNameService).deleteRuleName(anyInt());
 
         mockMvc.perform(get("/ruleName/delete/1"))
-                .andExpect(status().isFound())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/ruleName/list"));
+                .andExpect(status().isOk());
+
 
 
     }

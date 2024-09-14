@@ -20,13 +20,12 @@ public class UserRegistry {
 
     @PostMapping(&quot;adduser&quot;)
     public User registerUser(@RequestBody UserDTO userDTO){
-//        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-<span class="nc" id="L24">        User user = new User();</span>
-<span class="nc" id="L25">        user.setUsername(userDTO.getUsername());</span>
-<span class="nc" id="L26">        user.setFullname(userDTO.getFullname());</span>
-<span class="nc" id="L27">        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
-<span class="nc" id="L28">        user.setRole(userDTO.getRole());</span>
-<span class="nc" id="L29">        return new ResponseEntity&lt;&gt;(userRepository.save(user),HttpStatus.OK).getBody();</span>
+<span class="nc" id="L23">        User user = new User();</span>
+<span class="nc" id="L24">        user.setUsername(userDTO.getUsername());</span>
+<span class="nc" id="L25">        user.setFullname(userDTO.getFullname());</span>
+<span class="nc" id="L26">        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
+<span class="nc" id="L27">        user.setRole(userDTO.getRole());</span>
+<span class="nc" id="L28">        return new ResponseEntity&lt;&gt;(userRepository.save(user),HttpStatus.OK).getBody();</span>
     }
 
 }

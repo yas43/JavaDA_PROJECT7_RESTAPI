@@ -16,54 +16,77 @@ public class TradeService {
 <span class="fc" id="L16">        this.tradeRepository = tradeRepository;</span>
 <span class="fc" id="L17">    }</span>
 
-
+    /**
+     * Find list trade and Convert tradeDto
+     * @return the list of tradeDto
+     */
     public Object displayAllTrade() {
-<span class="fc" id="L21">        return tradeRepository.findAll()</span>
-<span class="fc" id="L22">                .stream()</span>
-<span class="fc" id="L23">                .map(</span>
+<span class="fc" id="L24">        return tradeRepository.findAll()</span>
+<span class="fc" id="L25">                .stream()</span>
+<span class="fc" id="L26">                .map(</span>
                         trade -&gt; {
-<span class="fc" id="L25">                            return new TradeDTO(trade.getTradeId(),</span>
-<span class="fc" id="L26">                                    trade.getAccount(),</span>
-<span class="fc" id="L27">                                    trade.getType(),</span>
-<span class="fc" id="L28">                                    trade.getBuyQuantity());</span>
+<span class="fc" id="L28">                            return new TradeDTO(trade.getTradeId(),</span>
+<span class="fc" id="L29">                                    trade.getAccount(),</span>
+<span class="fc" id="L30">                                    trade.getType(),</span>
+<span class="fc" id="L31">                                    trade.getBuyQuantity());</span>
                         })
-<span class="fc" id="L30">                .collect(Collectors.toList());</span>
+<span class="fc" id="L33">                .collect(Collectors.toList());</span>
     }
 
+    /**
+     * adding new trade to database , convert tradeDTO to trade
+     * @param tradeDTO given trade by user
+     * @return accepted trade save in DB
+     */
     public Trade addTrade(TradeDTO tradeDTO) {
-<span class="fc" id="L34">        Trade trade = new Trade();</span>
-<span class="fc" id="L35">        trade.setAccount(tradeDTO.getAccount());</span>
-<span class="fc" id="L36">        trade.setType(tradeDTO.getType());</span>
-<span class="fc" id="L37">        trade.setCreationDate(new Timestamp(System.currentTimeMillis()));</span>
-<span class="fc" id="L38">        trade.setBuyQuantity(tradeDTO.getBuyQuantity());</span>
-<span class="fc" id="L39">        return tradeRepository.save(trade);</span>
+<span class="fc" id="L42">        Trade trade = new Trade();</span>
+<span class="fc" id="L43">        trade.setAccount(tradeDTO.getAccount());</span>
+<span class="fc" id="L44">        trade.setType(tradeDTO.getType());</span>
+<span class="fc" id="L45">        trade.setCreationDate(new Timestamp(System.currentTimeMillis()));</span>
+<span class="fc" id="L46">        trade.setBuyQuantity(tradeDTO.getBuyQuantity());</span>
+<span class="fc" id="L47">        return tradeRepository.save(trade);</span>
     }
 
+    /**
+     * find trade by via id , convert to tradeDTO
+     * @param id id of trade entity
+     * @return corresponding trade or issue tradeNotFoundException
+     */
     public TradeDTO displayTradeById(Integer id) {
-<span class="fc" id="L43">        Trade trade = tradeRepository.findById(id)</span>
-<span class="fc" id="L44">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find a trade by this id&quot;));</span>
-<span class="fc" id="L45">        TradeDTO tradeDTO = new TradeDTO();</span>
-<span class="fc" id="L46">        tradeDTO.setTradeId(trade.getTradeId());</span>
-<span class="fc" id="L47">        tradeDTO.setType(trade.getType());</span>
-<span class="fc" id="L48">        tradeDTO.setAccount(trade.getAccount());</span>
-<span class="fc" id="L49">        tradeDTO.setBuyQuantity(trade.getBuyQuantity());</span>
-<span class="fc" id="L50">        return tradeDTO;</span>
+<span class="fc" id="L56">        Trade trade = tradeRepository.findById(id)</span>
+<span class="fc" id="L57">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find a trade by this id&quot;));</span>
+<span class="fc" id="L58">        TradeDTO tradeDTO = new TradeDTO();</span>
+<span class="fc" id="L59">        tradeDTO.setTradeId(trade.getTradeId());</span>
+<span class="fc" id="L60">        tradeDTO.setType(trade.getType());</span>
+<span class="fc" id="L61">        tradeDTO.setAccount(trade.getAccount());</span>
+<span class="fc" id="L62">        tradeDTO.setBuyQuantity(trade.getBuyQuantity());</span>
+<span class="fc" id="L63">        return tradeDTO;</span>
     }
 
+    /**
+     * Updates an existing trade object with the provided new values.
+     * @param id the ID of the trade object to update.
+     * @param tradeDTO bid the trade object containing the new values.
+     * @return RuntimeException if the provided ID does not match any object in the database
+     */
     public Trade updateTrade(Integer id, TradeDTO tradeDTO) {
-<span class="fc" id="L54">        Trade trade = tradeRepository.findById(id)</span>
-<span class="pc" id="L55">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find trade by given id&quot;));</span>
-<span class="fc" id="L56">        trade.setTradeId(tradeDTO.getTradeId());</span>
-<span class="fc" id="L57">        trade.setAccount(tradeDTO.getAccount());</span>
-<span class="fc" id="L58">        trade.setType(tradeDTO.getType());</span>
-<span class="fc" id="L59">        trade.setBuyQuantity(tradeDTO.getBuyQuantity());</span>
-<span class="fc" id="L60">        return tradeRepository.save(trade);</span>
+<span class="fc" id="L73">        Trade trade = tradeRepository.findById(id)</span>
+<span class="pc" id="L74">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find trade by given id&quot;));</span>
+<span class="fc" id="L75">        trade.setTradeId(tradeDTO.getTradeId());</span>
+<span class="fc" id="L76">        trade.setAccount(tradeDTO.getAccount());</span>
+<span class="fc" id="L77">        trade.setType(tradeDTO.getType());</span>
+<span class="fc" id="L78">        trade.setBuyQuantity(tradeDTO.getBuyQuantity());</span>
+<span class="fc" id="L79">        return tradeRepository.save(trade);</span>
     }
 
+    /**
+     * Deletes a trade object by its ID.
+     * @param id the ID of the trade object to delete.
+     */
     public void deleteTrade(Integer id) {
-<span class="fc" id="L64">        Trade trade = tradeRepository.findById(id)</span>
-<span class="fc" id="L65">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find trade by this id&quot;));</span>
-<span class="fc" id="L66">        tradeRepository.delete(trade);</span>
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L87">        Trade trade = tradeRepository.findById(id)</span>
+<span class="fc" id="L88">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find trade by this id&quot;));</span>
+<span class="fc" id="L89">        tradeRepository.delete(trade);</span>
+<span class="fc" id="L90">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -11,7 +11,6 @@ com/nnk/springboot/domain/User.class
 com/nnk/springboot/domain/Rating.class
 com/nnk/springboot/service/UserService.class
 com/nnk/springboot/controllers/RatingController.class
-com/nnk/springboot/domain/dto/RulleNameDTO.class
 com/nnk/springboot/repositories/UserRepository.class
 com/nnk/springboot/domain/Trade.class
 com/nnk/springboot/repositories/CurvePointRepository.class
@@ -19,6 +18,7 @@ com/nnk/springboot/repositories/RuleNameRepository.class
 com/nnk/springboot/repositories/RatingRepository.class
 com/nnk/springboot/domain/dto/TradeDTO.class
 com/nnk/springboot/Application.class
+com/nnk/springboot/domain/dto/RuleNameDTO.class
 com/nnk/springboot/controllers/LoginController.class
 com/nnk/springboot/service/CurvePointService.class
 com/nnk/springboot/service/TradeService.class

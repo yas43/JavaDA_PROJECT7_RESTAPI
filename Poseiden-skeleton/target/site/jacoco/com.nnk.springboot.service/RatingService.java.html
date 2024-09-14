@@ -17,56 +17,81 @@ public class RatingService {
 <span class="fc" id="L17">        this.ratingRepository = ratingRepository;</span>
 <span class="fc" id="L18">    }</span>
 
+    /**
+     * find  list of rating  , convert to ratingDTO
+     * @return the list of ratingDTO
+     */
     public List&lt;RatingDTO&gt; displayAllRating() {
-<span class="fc" id="L21">      return   ratingRepository.findAll().stream()</span>
-<span class="fc" id="L22">                .map(rating -&gt;</span>
+<span class="fc" id="L25">      return   ratingRepository.findAll().stream()</span>
+<span class="fc" id="L26">                .map(rating -&gt;</span>
                         {
-<span class="fc" id="L24">                               return new RatingDTO(rating.getId(),</span>
-<span class="fc" id="L25">                                       rating.getMoodysRating(),</span>
-<span class="fc" id="L26">                                       rating.getSandpRating(),</span>
-<span class="fc" id="L27">                                       rating.getFitchRating(),</span>
-<span class="fc" id="L28">                                       rating.getOrderNumber());</span>
+<span class="fc" id="L28">                               return new RatingDTO(rating.getId(),</span>
+<span class="fc" id="L29">                                       rating.getMoodysRating(),</span>
+<span class="fc" id="L30">                                       rating.getSandpRating(),</span>
+<span class="fc" id="L31">                                       rating.getFitchRating(),</span>
+<span class="fc" id="L32">                                       rating.getOrderNumber());</span>
                         })
-<span class="fc" id="L30">                .collect(toList());</span>
+<span class="fc" id="L34">                .collect(toList());</span>
 
     }
 
+    /**
+     * adding new rating to database , convert ratingDTO to bisList
+     * @param ratingDTO given rating by user
+     * @return accepted rating save in DB
+     */
     public Rating addRating(RatingDTO ratingDTO) {
-<span class="fc" id="L35">        Rating rating = new Rating();</span>
-<span class="fc" id="L36">        rating.setFitchRating(ratingDTO.getFitchRating());</span>
-<span class="fc" id="L37">        rating.setMoodysRating(ratingDTO.getMoodysRating());</span>
-<span class="fc" id="L38">        rating.setSandpRating(ratingDTO.getSandPRating());</span>
-<span class="fc" id="L39">        rating.setOrderNumber(ratingDTO.getOrder());</span>
-<span class="fc" id="L40">        return ratingRepository.save(rating);</span>
+<span class="fc" id="L44">        Rating rating = new Rating();</span>
+<span class="fc" id="L45">        rating.setFitchRating(ratingDTO.getFitchRating());</span>
+<span class="fc" id="L46">        rating.setMoodysRating(ratingDTO.getMoodysRating());</span>
+<span class="fc" id="L47">        rating.setSandpRating(ratingDTO.getSandPRating());</span>
+<span class="fc" id="L48">        rating.setOrderNumber(ratingDTO.getOrder());</span>
+<span class="fc" id="L49">        return ratingRepository.save(rating);</span>
     }
 
+    /**
+     * find rating by via id , convert to ratingDTO
+     * @param id id
+     * @return the  corresponding rating  or issue ratingNotFoundException
+     */
     public RatingDTO displayRatingById(Integer id) {
-<span class="fc" id="L44">        Rating rating = ratingRepository.findById(id)</span>
-<span class="fc" id="L45">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by this id&quot;));</span>
-<span class="fc" id="L46">        RatingDTO ratingDTO = new RatingDTO();</span>
-<span class="fc" id="L47">        ratingDTO.setId(rating.getId());</span>
-<span class="fc" id="L48">        ratingDTO.setFitchRating(rating.getFitchRating());</span>
-<span class="fc" id="L49">        ratingDTO.setMoodysRating(rating.getMoodysRating());</span>
-<span class="fc" id="L50">        ratingDTO.setSandPRating(rating.getSandpRating());</span>
-<span class="fc" id="L51">        ratingDTO.setOrder(rating.getOrderNumber());</span>
-<span class="fc" id="L52">        return ratingDTO;</span>
+<span class="fc" id="L58">        Rating rating = ratingRepository.findById(id)</span>
+<span class="fc" id="L59">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by this id&quot;));</span>
+<span class="fc" id="L60">        RatingDTO ratingDTO = new RatingDTO();</span>
+<span class="fc" id="L61">        ratingDTO.setId(rating.getId());</span>
+<span class="fc" id="L62">        ratingDTO.setFitchRating(rating.getFitchRating());</span>
+<span class="fc" id="L63">        ratingDTO.setMoodysRating(rating.getMoodysRating());</span>
+<span class="fc" id="L64">        ratingDTO.setSandPRating(rating.getSandpRating());</span>
+<span class="fc" id="L65">        ratingDTO.setOrder(rating.getOrderNumber());</span>
+<span class="fc" id="L66">        return ratingDTO;</span>
     }
 
+    /**
+     * Updates an existing rating object with the provided new values.
+     * @param id the ID of the rating object to update.
+     * @param ratingDTO bid the rating object containing the new values.
+     * @return the updated rating object saved to the database.
+     *  @throws RuntimeException if the provided ID does not match any object in the database
+     */
     public Rating updateRating(Integer id, RatingDTO ratingDTO) {
-<span class="fc" id="L56">        Rating rating = ratingRepository.findById(id)</span>
-<span class="pc" id="L57">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by given id&quot;));</span>
-<span class="fc" id="L58">        rating.setId(ratingDTO.getId());</span>
-<span class="fc" id="L59">        rating.setSandpRating(ratingDTO.getSandPRating());</span>
-<span class="fc" id="L60">        rating.setFitchRating(ratingDTO.getFitchRating());</span>
-<span class="fc" id="L61">        rating.setMoodysRating(ratingDTO.getMoodysRating());</span>
-<span class="fc" id="L62">        rating.setOrderNumber(ratingDTO.getOrder());</span>
-<span class="fc" id="L63">        return ratingRepository.save(rating);</span>
+<span class="fc" id="L77">        Rating rating = ratingRepository.findById(id)</span>
+<span class="pc" id="L78">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by given id&quot;));</span>
+<span class="fc" id="L79">        rating.setId(ratingDTO.getId());</span>
+<span class="fc" id="L80">        rating.setSandpRating(ratingDTO.getSandPRating());</span>
+<span class="fc" id="L81">        rating.setFitchRating(ratingDTO.getFitchRating());</span>
+<span class="fc" id="L82">        rating.setMoodysRating(ratingDTO.getMoodysRating());</span>
+<span class="fc" id="L83">        rating.setOrderNumber(ratingDTO.getOrder());</span>
+<span class="fc" id="L84">        return ratingRepository.save(rating);</span>
     }
 
+    /**
+     * Deletes a rating object by its ID.
+     * @param id the ID of the rating object to delete.
+     */
     public void deleteRating(Integer id) {
-<span class="fc" id="L67">        Rating rating = ratingRepository.findById(id)</span>
-<span class="fc" id="L68">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by this id&quot;));</span>
-<span class="fc" id="L69">        ratingRepository.delete(rating);</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L92">        Rating rating = ratingRepository.findById(id)</span>
+<span class="fc" id="L93">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find rating by this id&quot;));</span>
+<span class="fc" id="L94">        ratingRepository.delete(rating);</span>
+<span class="fc" id="L95">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.domain.dto.*;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.*;
 import jakarta.validation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.password.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,82 +18,66 @@ public class UserController {
    private final PasswordEncoder passwordEncoder;
    private final Utils utils;
 
-<span class="fc" id="L25">    public UserController(UserService userService, PasswordEncoder passwordEncoder, Utils utils) {</span>
-<span class="fc" id="L26">        this.userService = userService;</span>
-<span class="fc" id="L27">        this.passwordEncoder = passwordEncoder;</span>
-<span class="fc" id="L28">        this.utils = utils;</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L21">    public UserController(UserService userService, PasswordEncoder passwordEncoder, Utils utils) {</span>
+<span class="fc" id="L22">        this.userService = userService;</span>
+<span class="fc" id="L23">        this.passwordEncoder = passwordEncoder;</span>
+<span class="fc" id="L24">        this.utils = utils;</span>
+<span class="fc" id="L25">    }</span>
 
     @GetMapping(&quot;/list&quot;)
     public String home(Model model)
     {
-<span class="fc" id="L34">        model.addAttribute(&quot;users&quot;, userService.displayAllUser());</span>
-<span class="fc" id="L35">        model.addAttribute(&quot;connectedUser&quot;,utils.currentUser().getFullname());</span>
-<span class="fc" id="L36">        return &quot;user/list&quot;;</span>
+<span class="fc" id="L30">        model.addAttribute(&quot;users&quot;, userService.displayAllUser());</span>
+<span class="fc" id="L31">        model.addAttribute(&quot;connectedUser&quot;,utils.currentUser().getFullname());</span>
+<span class="fc" id="L32">        return &quot;user/list&quot;;</span>
     }
 
     @GetMapping(&quot;/add&quot;)
     public String addUser(Model model) {
-<span class="fc" id="L41">        model.addAttribute(&quot;user&quot;,new UserDTO());</span>
-<span class="fc" id="L42">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L37">        model.addAttribute(&quot;user&quot;,new UserDTO());</span>
+<span class="fc" id="L38">        return &quot;user/add&quot;;</span>
     }
 
     @PostMapping(&quot;/validate&quot;)
     public String validate(@Valid @ModelAttribute(&quot;user&quot;) UserDTO userDTO, BindingResult result, Model model) {
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L48">            return &quot;user/add&quot;;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L44">            return &quot;user/add&quot;;</span>
         } else {
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            user.setPassword(encoder.encode(user.getPassword()));
-//            userRepository.save(user);
-//            model.addAttribute(&quot;users&quot;, userRepository.findAll());
-<span class="fc" id="L54">            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
-<span class="fc" id="L55">            userService.addUser(userDTO);</span>
-<span class="fc" id="L56">            return &quot;redirect:/admin/list&quot;;</span>
+
+<span class="fc" id="L47">            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));</span>
+<span class="fc" id="L48">            userService.addUser(userDTO);</span>
+<span class="fc" id="L49">            return &quot;redirect:/admin/list&quot;;</span>
         }
-//        return &quot;user/add&quot;;
     }
 
 
     @GetMapping(&quot;/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));
-//        user.setPassword(&quot;&quot;);
-//        model.addAttribute(&quot;user&quot;, user);
-//        return &quot;user/update&quot;;
-<span class="fc" id="L68">        System.out.println(&quot;this is yaser received id is &quot;+ id);</span>
-<span class="fc" id="L69">        model.addAttribute(&quot;userDTO&quot;,userService.displayUserById(id));</span>
-<span class="fc" id="L70">        return &quot;user/update&quot;;</span>
+
+
+<span class="fc" id="L58">        model.addAttribute(&quot;userDTO&quot;,userService.displayUserById(id));</span>
+<span class="fc" id="L59">        return &quot;user/update&quot;;</span>
     }
 
-    @PostMapping(&quot;/update/{id}&quot;)//place holder for password doesn't work
+    @PostMapping(&quot;/update/{id}&quot;)
     public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid @ModelAttribute UserDTO userDTO,
-                             BindingResult result, Model model) {
-<span class="fc" id="L76">        System.out.println(&quot;this is received id = &quot;+ id);</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L78">            return &quot;user/update&quot;;</span>
+                             BindingResult result) {
+
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L67">            return &quot;user/update&quot;;</span>
         }else {
-<span class="fc" id="L80">            userService.updateUser(id, userDTO);</span>
-<span class="fc" id="L81">            return &quot;redirect:/admin/list&quot;;</span>
+<span class="fc" id="L69">            userService.updateUser(id, userDTO);</span>
+<span class="fc" id="L70">            return &quot;redirect:/admin/list&quot;;</span>
                 }
         }
 
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        user.setPassword(encoder.encode(user.getPassword()));
-//        user.setId(id);
-//        userRepository.save(user);
-//        model.addAttribute(&quot;users&quot;, userRepository.findAll());
-//        return &quot;redirect:/user/list&quot;;
-//    }
+
 
     @GetMapping(&quot;/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));
-//        userRepository.delete(user);
-//        model.addAttribute(&quot;users&quot;, userRepository.findAll());
-//        return &quot;redirect:/user/list&quot;;
-<span class="fc" id="L99">        userService.deleteUser(id);</span>
-<span class="fc" id="L100">        return &quot;redirect:/admin/list&quot;;</span>
+
+<span class="fc" id="L79">        userService.deleteUser(id);</span>
+<span class="fc" id="L80">        return &quot;redirect:/admin/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

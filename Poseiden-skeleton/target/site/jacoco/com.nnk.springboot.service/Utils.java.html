@@ -18,13 +18,17 @@ public class Utils {
 <span class="fc" id="L18">        this.userRepository = userRepository;</span>
 <span class="fc" id="L19">    }</span>
 
+    /**
+     * give user who is login
+     * @return existing user in DB who is login
+     */
     public User currentUser(){
-<span class="nc" id="L22">       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="nc" id="L23">       Object principle = authentication.getPrincipal();</span>
-<span class="nc" id="L24">       UserDetails userDetails = (UserDetails) principle;</span>
-<span class="nc" id="L25">       var currentuser = userRepository.findByUsername(userDetails.getUsername())</span>
-<span class="nc" id="L26">               .orElseThrow(()-&gt;new RuntimeException(&quot; user not founded&quot;));</span>
-<span class="nc" id="L27">       return currentuser;</span>
+<span class="nc" id="L26">       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="nc" id="L27">       Object principle = authentication.getPrincipal();</span>
+<span class="nc" id="L28">       UserDetails userDetails = (UserDetails) principle;</span>
+<span class="nc" id="L29">       var currentuser = userRepository.findByUsername(userDetails.getUsername())</span>
+<span class="nc" id="L30">               .orElseThrow(()-&gt;new RuntimeException(&quot; user not founded&quot;));</span>
+<span class="nc" id="L31">       return currentuser;</span>
    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -17,7 +17,7 @@
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/BidListDTO.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/CurvePointDTO.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/RatingDTO.java
-/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/RulleNameDTO.java
+/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/RuleNameDTO.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/TradeDTO.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/dto/UserDTO.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/main/java/com/nnk/springboot/repositories/BidListRepository.java

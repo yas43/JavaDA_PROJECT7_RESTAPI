@@ -17,50 +17,74 @@ public class CurvePointService {
 <span class="fc" id="L17">        this.curvePointRepository = curvePointRepository;</span>
 <span class="fc" id="L18">    }</span>
 
+    /**
+     * Find list CurvePoint and Convert curvePointDto
+     * @return the list of curvePoint
+     */
     public List&lt;CurvePointDTO&gt; displayAllCurvePoint() {
 
-<span class="fc" id="L22">      return curvePointRepository.findAll()</span>
-<span class="fc" id="L23">                .stream()</span>
-<span class="fc" id="L24">                .map(</span>
+<span class="fc" id="L26">      return curvePointRepository.findAll()</span>
+<span class="fc" id="L27">                .stream()</span>
+<span class="fc" id="L28">                .map(</span>
                         curvePoint -&gt; {
-<span class="fc" id="L26">                           return new CurvePointDTO(curvePoint.getId(),</span>
-<span class="fc" id="L27">                                    curvePoint.getTerm(),</span>
-<span class="fc" id="L28">                                    curvePoint.getValue());</span>
+<span class="fc" id="L30">                           return new CurvePointDTO(curvePoint.getId(),</span>
+<span class="fc" id="L31">                                    curvePoint.getTerm(),</span>
+<span class="fc" id="L32">                                    curvePoint.getValue());</span>
                         })
-<span class="fc" id="L30">               .collect(Collectors.toList());</span>
+<span class="fc" id="L34">               .collect(Collectors.toList());</span>
     }
 
+    /**
+     * adding new CurvePoint to database , convert curvePointDto to CurvePoint
+     * @param curvePointDTO given bidList by user
+     * @return accepted CurvePoint save in DB
+     */
     public CurvePoint addCurvePoint(CurvePointDTO curvePointDTO) {
-<span class="fc" id="L34">        CurvePoint curvePoint = new CurvePoint();</span>
-<span class="fc" id="L35">        curvePoint.setTerm(curvePointDTO.getTerm());</span>
-<span class="fc" id="L36">        curvePoint.setValue(curvePointDTO.getValue());</span>
-<span class="fc" id="L37">        curvePoint.setCreationDate(new Timestamp(System.currentTimeMillis()));</span>
-<span class="fc" id="L38">        return curvePointRepository.save(curvePoint);</span>
+<span class="fc" id="L43">        CurvePoint curvePoint = new CurvePoint();</span>
+<span class="fc" id="L44">        curvePoint.setTerm(curvePointDTO.getTerm());</span>
+<span class="fc" id="L45">        curvePoint.setValue(curvePointDTO.getValue());</span>
+<span class="fc" id="L46">        curvePoint.setCreationDate(new Timestamp(System.currentTimeMillis()));</span>
+<span class="fc" id="L47">        return curvePointRepository.save(curvePoint);</span>
     }
 
+    /**
+     * find bidList by via id , convert to curvePointDto
+     * @param id id
+     * @return the  corresponding CurvePoint  or issue CurvePointNotFoundException
+     */
     public CurvePointDTO displayCurvePointById(Integer id) {
-<span class="fc" id="L42">        CurvePoint  curvePoint = curvePointRepository.findById(id)</span>
-<span class="fc" id="L43">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find a curve point by this id&quot;));</span>
-<span class="fc" id="L44">        CurvePointDTO curvePointDTO = new CurvePointDTO();</span>
-<span class="fc" id="L45">        curvePointDTO.setId(curvePoint.getId());</span>
-<span class="fc" id="L46">        curvePointDTO.setTerm(curvePoint.getTerm());</span>
-<span class="fc" id="L47">        curvePointDTO.setValue(curvePoint.getValue());</span>
-<span class="fc" id="L48">        return curvePointDTO;</span>
+<span class="fc" id="L56">        CurvePoint  curvePoint = curvePointRepository.findById(id)</span>
+<span class="fc" id="L57">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find a curve point by this id&quot;));</span>
+<span class="fc" id="L58">        CurvePointDTO curvePointDTO = new CurvePointDTO();</span>
+<span class="fc" id="L59">        curvePointDTO.setId(curvePoint.getId());</span>
+<span class="fc" id="L60">        curvePointDTO.setTerm(curvePoint.getTerm());</span>
+<span class="fc" id="L61">        curvePointDTO.setValue(curvePoint.getValue());</span>
+<span class="fc" id="L62">        return curvePointDTO;</span>
     }
 
+    /**
+     * Updates an existing CurvePoint object with the provided new values.
+     * @param id the ID of the CurvePoint object to update.
+     * @param curvePointDTO bid the CurvePoint object containing the new values.
+     * @return RuntimeException if the provided ID does not match any object in the database
+     */
     public CurvePoint updateCurvePoint(Integer id,CurvePointDTO curvePointDTO){
-<span class="fc" id="L52">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
-<span class="pc" id="L53">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find curve point by given id&quot;));</span>
-<span class="fc" id="L54">        curvePoint.setCurveId(curvePointDTO.getId());</span>
-<span class="fc" id="L55">        curvePoint.setTerm(curvePointDTO.getTerm());</span>
-<span class="fc" id="L56">        curvePoint.setValue(curvePointDTO.getValue());</span>
-<span class="fc" id="L57">        return curvePointRepository.save(curvePoint);</span>
+<span class="fc" id="L72">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
+<span class="pc" id="L73">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find curve point by given id&quot;));</span>
+<span class="fc" id="L74">        curvePoint.setCurveId(curvePointDTO.getId());</span>
+<span class="fc" id="L75">        curvePoint.setTerm(curvePointDTO.getTerm());</span>
+<span class="fc" id="L76">        curvePoint.setValue(curvePointDTO.getValue());</span>
+<span class="fc" id="L77">        return curvePointRepository.save(curvePoint);</span>
     }
 
+    /**
+     * Deletes a CurvePoint object by its ID
+     * @param id the ID of the CurvePoint object to delete.
+     */
     public void deleteCurvPoint(Integer id) {
-<span class="fc" id="L61">        CurvePoint curvePoint =  curvePointRepository.findById(id)</span>
-<span class="fc" id="L62">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find curve point by this id&quot;));</span>
-<span class="fc" id="L63">        curvePointRepository.delete(curvePoint);</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L85">        CurvePoint curvePoint =  curvePointRepository.findById(id)</span>
+<span class="fc" id="L86">                .orElseThrow(()-&gt;new RuntimeException(&quot;could not find curve point by this id&quot;));</span>
+<span class="fc" id="L87">        curvePointRepository.delete(curvePoint);</span>
+<span class="fc" id="L88">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

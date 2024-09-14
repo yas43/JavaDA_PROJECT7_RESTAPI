@@ -2,12 +2,12 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 PoseidenSkeleton,com.nnk.springboot.controllers,LoginController,40,6,4,0,12,3,5,1,3,1
 PoseidenSkeleton,com.nnk.springboot.controllers,HomeController,4,3,0,0,2,1,2,1,2,1
 PoseidenSkeleton,com.nnk.springboot.controllers,CurveController,4,72,2,2,2,19,2,7,0,7
-PoseidenSkeleton,com.nnk.springboot.controllers,UserController,0,94,0,4,0,25,0,9,0,7
-PoseidenSkeleton,com.nnk.springboot.controllers,BidListController,11,78,0,4,2,20,1,8,1,6
+PoseidenSkeleton,com.nnk.springboot.controllers,UserController,0,86,0,4,0,23,0,9,0,7
+PoseidenSkeleton,com.nnk.springboot.controllers,BidListController,16,78,2,4,4,20,2,8,1,6
 PoseidenSkeleton,com.nnk.springboot.controllers,RatingController,2,74,1,3,1,20,1,8,0,7
 PoseidenSkeleton,com.nnk.springboot.controllers,UserRegistry,35,9,0,0,6,4,1,1,1,1
-PoseidenSkeleton,com.nnk.springboot.controllers,TradeController,8,68,1,3,2,19,1,8,0,7
-PoseidenSkeleton,com.nnk.springboot.controllers,RuleNameController,4,72,2,2,2,19,2,7,0,7
+PoseidenSkeleton,com.nnk.springboot.controllers,TradeController,2,74,1,3,1,20,1,8,0,7
+PoseidenSkeleton,com.nnk.springboot.controllers,RuleNameController,4,81,2,2,2,20,2,7,0,7
 PoseidenSkeleton,com.nnk.springboot.service,TradeService,5,138,0,0,0,36,1,9,1,9
 PoseidenSkeleton,com.nnk.springboot.service,RuleNameService,5,175,0,0,0,47,1,9,1,9
 PoseidenSkeleton,com.nnk.springboot.service,CustomUserDetailsService,38,6,2,0,11,3,2,1,1,1

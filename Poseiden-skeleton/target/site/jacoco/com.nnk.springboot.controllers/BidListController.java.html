@@ -61,16 +61,22 @@ public class BidListController {
     }
 
     @PostMapping(&quot;/update/{id}&quot;)
-    public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid BidListDTO bidListDTO, Model model) {
-<span class="nc" id="L65">        model.addAttribute(&quot;bidLists&quot;,bidListService.updateBidList( id,bidListDTO));</span>
-<span class="nc" id="L66">        return &quot;redirect:/bidList/list&quot;;</span>
+    public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid BidListDTO bidListDTO,BindingResult result , Model model) {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (result.hasErrors()){</span>
+<span class="nc" id="L66">            return &quot;bidList/update&quot;;</span>
+        }else {
+<span class="nc" id="L68">                    model.addAttribute(&quot;bidLists&quot;,bidListService.updateBidList( id,bidListDTO));</span>
+<span class="nc" id="L69">            return &quot;redirect:/bidList/list&quot;;</span>
+
+        }
+
     }
 
     @GetMapping(&quot;/delete/{id}&quot;)
     public String deleteBid(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L71">        bidListService.deleteBidList(id);</span>
-<span class="fc" id="L72">        model.addAttribute(&quot;bidLists&quot;,bidListService.displayAllBidList());</span>
-<span class="fc" id="L73">        return &quot;bidList/list&quot;;</span>
+<span class="fc" id="L77">        bidListService.deleteBidList(id);</span>
+<span class="fc" id="L78">        model.addAttribute(&quot;bidLists&quot;,bidListService.displayAllBidList());</span>
+<span class="fc" id="L79">        return &quot;bidList/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

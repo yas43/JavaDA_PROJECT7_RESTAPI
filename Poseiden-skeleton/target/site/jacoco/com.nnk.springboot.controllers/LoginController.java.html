@@ -1,67 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PoseidenSkeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.*;
 import jakarta.servlet.http.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.*;
 
 @Controller
 @RequestMapping(&quot;app&quot;)
 public class LoginController {
     private final Utils utils;
 
-<span class="fc" id="L16">    public LoginController(Utils utils) {</span>
-<span class="fc" id="L17">        this.utils = utils;</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L14">    public LoginController(Utils utils) {</span>
+<span class="fc" id="L15">        this.utils = utils;</span>
+<span class="fc" id="L16">    }</span>
 
     //
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @GetMapping(&quot;login&quot;)
-//    public ModelAndView login() {
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName(&quot;login&quot;);
-//        return mav;
-//    }
-//
-//    @GetMapping(&quot;secure/article-details&quot;)
-//    public ModelAndView getAllUserArticles() {
-//        ModelAndView mav = new ModelAndView();
-//        mav.addObject(&quot;users&quot;, userRepository.findAll());
-//        mav.setViewName(&quot;user/list&quot;);
-//        return mav;
-//    }
-//
+
     @GetMapping(&quot;error&quot;)
     public ModelAndView error() {
-<span class="nc" id="L41">        ModelAndView mav = new ModelAndView();</span>
-<span class="nc" id="L42">        String errorMessage= &quot;You are not authorized for the requested data.&quot;;</span>
-<span class="nc" id="L43">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
-<span class="nc" id="L44">        mav.addObject(&quot;connectedUser&quot;,utils.currentUser().getFullname());</span>
-<span class="nc" id="L45">        mav.setViewName(&quot;403&quot;);</span>
-<span class="nc" id="L46">        return mav;</span>
+<span class="nc" id="L22">        ModelAndView mav = new ModelAndView();</span>
+<span class="nc" id="L23">        String errorMessage= &quot;You are not authorized for the requested data.&quot;;</span>
+<span class="nc" id="L24">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="nc" id="L25">        mav.addObject(&quot;connectedUser&quot;,utils.currentUser().getFullname());</span>
+<span class="nc" id="L26">        mav.setViewName(&quot;403&quot;);</span>
+<span class="nc" id="L27">        return mav;</span>
     }
 
 
     @GetMapping(&quot;/default&quot;)
     public String defaultSuccessfulHandler(HttpServletRequest request){
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (request.isUserInRole(&quot;ADMIN&quot;)){</span>
-<span class="nc" id="L53">            return &quot;redirect:/admin/list&quot;;</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        } else if (request.isUserInRole(&quot;USER&quot;)) {</span>
-<span class="nc" id="L55">            return &quot;redirect:/bidList/list&quot;;</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (request.isUserInRole(&quot;ADMIN&quot;)){</span>
+<span class="nc" id="L34">            return &quot;redirect:/admin/list&quot;;</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        } else if (request.isUserInRole(&quot;USER&quot;)) {</span>
+<span class="nc" id="L36">            return &quot;redirect:/bidList/list&quot;;</span>
         }else {
-<span class="nc" id="L57">            return &quot;/login&quot;;</span>
+<span class="nc" id="L38">            return &quot;/login&quot;;</span>
         }
     }
 
         @PostMapping(&quot;/api/login&quot;)
     public String login(@RequestParam String username,@RequestParam String password){
 
-<span class="nc" id="L64">        return &quot;user logged successfully&quot;;</span>
+<span class="nc" id="L45">        return &quot;user logged successfully&quot;;</span>
     }
 
 

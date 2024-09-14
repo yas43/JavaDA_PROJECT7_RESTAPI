@@ -1,8 +1,3 @@
-/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/BidTests.java
-/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/CurvePointTests.java
-/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/RatingTests.java
-/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/RuleTests.java
-/Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/TradeTests.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/BidListControllerTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/CurveControllerTest.java
 /Users/ykeshtdar/IdeaProjects/P7/Poseiden-skeleton/src/test/java/com/nnk/springboot/control/RatingControllerTest.java

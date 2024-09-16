@@ -2,6 +2,7 @@ package com.nnk.springboot.domain.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.format.annotation.*;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +15,6 @@ public class RatingDTO {
     String sandPRating;
     @Size(max = 125)
     String fitchRating;
+    @NumberFormat
     Integer order;
 }

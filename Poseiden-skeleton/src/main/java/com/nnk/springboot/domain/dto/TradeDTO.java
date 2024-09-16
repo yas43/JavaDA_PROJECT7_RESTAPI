@@ -2,6 +2,7 @@ package com.nnk.springboot.domain.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.format.annotation.*;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +15,6 @@ public class TradeDTO {
     @NotBlank
     @Size(max = 30)
     String type;
+    @NumberFormat
     Double buyQuantity;
 }
